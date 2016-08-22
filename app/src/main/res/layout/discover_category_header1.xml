@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_deals_icon"/>
+
+            <TextView
+                android:text="Deals"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+
+                android:textSize="8dp"
+                android:textColor="@color/text_grey_77"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_hotels_icon"/>
+
+            <TextView
+                android:text="Hotels"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+
+                android:textSize="8dp"
+                android:textColor="@color/text_grey_77"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_food_icon"/>
+
+            <TextView
+                android:text="Food Beverages"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+
+                android:textSize="8dp"
+                android:textColor="@color/text_grey_77"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_shopping_icon"/>
+
+            <TextView
+                android:text="Shopping"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+
+                android:textSize="8dp"
+                android:textColor="@color/text_grey_77"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_transport_icon"/>
+
+            <TextView
+                android:text="Transport"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="8dp"
+                android:textColor="@color/text_grey_77"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_transport_icon"/>
+
+            <TextView
+                android:text="Financial Services"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+
+                android:textSize="8dp"
+                android:textColor="@color/text_grey_77"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_health_icon"/>
+
+            <TextView
+                android:text="Health &amp; medical"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+
+                android:textSize="8dp"
+                android:textColor="@color/text_grey_77"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_shopping_icon"/>
+
+            <TextView
+                android:text="Shopping"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+
+                android:textSize="8dp"
+                android:textColor="@color/text_grey_77"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

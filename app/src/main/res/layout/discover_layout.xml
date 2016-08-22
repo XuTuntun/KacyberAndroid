@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/discover_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimaryDark">
+
+        <RelativeLayout
+            android:id="@+id/discover_place"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+
+
+            <TextView
+                android:id="@+id/discover_place_text"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:text="Uganda"
+                android:textSize="16dp"
+                android:textColor="@color/text_white_f5" />
+
+            <ImageView
+                android:id="@+id/discover_place_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/discoverpage_nav_drop_icon"
+                android:layout_toRightOf="@id/discover_place_text"/>
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/discover_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="9dp"
+            android:background="@drawable/discoverpage_nav_more_icon"/>
+
+        <RelativeLayout
+            android:id="@+id/discover_search"
+            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_toRightOf="@id/discover_place"
+            android:layout_toLeftOf="@id/discover_more"
+            android:background="@drawable/discover_search">
+
+            <ImageView
+                android:id="@+id/discover_search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/categoriespage_nav_search_icon"/>
+
+            <TextView
+                android:id="@+id/dicover_search_tint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/discover_search_button"
+                android:text="Catogery Brand or keyword"
+                android:textSize="16dp"/>
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/discover_view_pager_container"
+        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/discover_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"/>
+
+
+        <!--<com.kacyber.PageIndicator.CirclePageIndicator-->
+            <!--android:id="@+id/discover_pager_indicator"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="3dp"-->
+            <!--android:layout_gravity="center_horizontal|bottom"-->
+            <!--android:layout_marginBottom="60dp" />-->
+
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/discover_header_split"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/tab_unsel_color"/>
+
+    <RelativeLayout
+        android:id="@+id/discover_deal_container"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/discover_deal_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DEAL"
+            android:textColor="#ff9200"
+            android:textStyle="bold"
+            android:textSize="36dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+        <ImageView
+            android:id="@+id/discover_deal_split"
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/discover_deal_text"
+            android:background="@color/tab_unsel_color"/>
+
+        <TextView
+            android:id="@+id/dicover_deal_content_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:textSize="13dp"
+            android:text="The price of chicken\n 10 percent off"
+            android:textColor="#666666"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/discover_deal_split" />
+
+        <ImageView
+            android:id="@+id/detail_deal_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/person_more"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="New"
+            android:textColor="#ffffff"
+            android:textSize="13dp"
+            android:layout_gravity="center"
+            android:background="@drawable/deal_background"
+            android:layout_centerVertical="true"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:gravity="center"
+            android:layout_toLeftOf="@id/detail_deal_more"/>
+
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#efeff4"/>
+
+    <RelativeLayout
+        android:id="@+id/discover_trending_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/trending_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

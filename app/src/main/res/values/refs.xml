@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="tab_bar_shadow">#294180</drawable>
+    <drawable name="tab_bar_bg">#294180</drawable>
+</resources>
