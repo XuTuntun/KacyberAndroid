@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/entrance3" />
+        android:src="@drawable/bg" />
 
     <View
         android:layout_width="match_parent"
@@ -18,52 +18,60 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/entrance_bottom_bg" />
 
-    <LinearLayout
-        android:layout_marginBottom="12dp"
-        android:layout_above="@+id/title"
-        android:layout_width="wrap_content"
 
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-
-
-
-        <TextView
-            android:id="@+id/app_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:text="KaCyber"
-            android:textColor="#b3ffffff"
-            android:textSize="20sp" />
-
-
-    </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
+    <ImageView
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:gravity="center_horizontal"
-        android:text="© 北京披星戴月科技有限公司"
-        android:layout_above="@+id/icp"
-        android:textColor="#b3ffffff"
-        android:textSize="9sp" />
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingBottom="20dp"
+        android:background="@drawable/logo"/>
+
+    <!--<LinearLayout-->
+        <!--android:layout_marginBottom="12dp"-->
+        <!--android:layout_above="@+id/title"-->
+        <!--android:layout_width="wrap_content"-->
+
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_height="wrap_content">-->
+
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/app_name"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:text="KaCyber"-->
+            <!--android:textColor="#b3ffffff"-->
+            <!--android:textSize="20sp" />-->
+
+
+    <!--</LinearLayout>-->
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="2dp"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="© 北京披星戴月科技有限公司"-->
+        <!--android:layout_above="@+id/icp"-->
+        <!--android:textColor="#b3ffffff"-->
+        <!--android:textSize="9sp" />-->
 
     <TextView
         android:id="@+id/icp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="22dp"
         android:gravity="center_horizontal"
-        android:text="京ICP备15009092号"
+        android:text="© Kacyber 2016. All Rights Reserved"
         android:textColor="#b3ffffff"
-        android:textSize="9sp" />
+        android:textSize="16sp" />
 
 
 </RelativeLayout>

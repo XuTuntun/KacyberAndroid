@@ -2,13 +2,17 @@ package com.kacyber;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.kacyber.View.MainActivity;
+import com.kacyber.tools.SystemBarTintManager;
 
 import java.util.Random;
 
@@ -25,14 +29,18 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
+
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        Window window = this.getWindow();
+        //系统通知栏透明
+        window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintColor(Color.TRANSPARENT);
+//        tintManager.setStatusBarAlpha((float)0);
         context = this;
         mImageView = (ImageView) findViewById(R.id.image);
-        int index = new Random().nextInt(2);
-        if (index == 1) {
-            mImageView.setImageResource(R.drawable.entrance3);
-        } else {
-            mImageView.setImageResource(R.drawable.entrance2);
-        }
+
 //        startService(new Intent(this, CoreService.class));
 //        startService(new Intent(this, CleanerService.class));
 

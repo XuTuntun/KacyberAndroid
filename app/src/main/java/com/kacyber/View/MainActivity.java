@@ -1,6 +1,7 @@
 package com.kacyber.View;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.kacyber.R;
+import com.kacyber.tools.SystemBarTintManager;
 
 public class MainActivity extends AppCompatActivity implements NewChatsFragment.OnFragmentInteractionListener, NewContactsFragment.OnFragmentInteractionListener, NewMoreFragment.OnFragmentInteractionListener {
     private static String TAG = MainActivity.class.getName();
@@ -48,6 +50,15 @@ public class MainActivity extends AppCompatActivity implements NewChatsFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+//        ActionBar actionBar = this.getActionBar();
+//        actionBar.hide();
+
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
+        tintManager.setStatusBarAlpha((float)255);
+//        tintManager.setTintColor(Color.parseColor("#3ea1f5"));
 
 
         initView();

@@ -31,8 +31,8 @@ public class DiscoverFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.discover_layout, null);
+        @Nullable Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.discover_layout, null);
 
         applicationContext = getActivity().getApplicationContext();
 
