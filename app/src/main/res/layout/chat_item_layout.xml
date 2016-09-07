@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="#ffffff"
+    tools:context="com.kacyber.View.NewChatsFragment">
+
+    <RelativeLayout
+        android:id="@+id/chat_portrait"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp">
+
+        <com.kacyber.View.CircleNetworkImageView
+            android:id="@+id/chat_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/chatspage_head_photo_placeholder2"></com.kacyber.View.CircleNetworkImageView>
+
+        <ImageView
+            android:id="@+id/chat_noti"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/chat_noti" />
+
+
+        <ImageView
+            android:id="@+id/chat_secure_bool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/chatspage_secret_icon"/>
+
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp"
+        android:text="16:40"
+        android:textColor="@color/text_9"/>
+
+
+    <LinearLayout
+        android:id="@+id/chat_item_text_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/chat_portrait"
+        android:gravity="left|center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/chat_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:text="Bennet"
+            android:textColor="@color/text_6"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/chat_item_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="We are having a party this weekend"
+            android:textSize="14dp"
+            android:textColor="@color/text_6"/>
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

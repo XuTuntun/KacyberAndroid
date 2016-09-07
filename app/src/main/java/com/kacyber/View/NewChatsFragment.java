@@ -1,6 +1,7 @@
 package com.kacyber.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.androidquery.AQuery;
+import com.kacyber.ActAndFrg.NormalChatActivity;
 import com.kacyber.R;
 
 /**
@@ -18,7 +21,7 @@ import com.kacyber.R;
  * Use the {@link NewChatsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewChatsFragment extends Fragment {
+public class NewChatsFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -67,6 +70,9 @@ public class NewChatsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_chats, container, false);
 
+        AQuery aQuery = new AQuery(view);
+        aQuery.id(R.id.chat_item_test).clickable(true).clicked(this);
+
         return view;
     }
 
@@ -92,6 +98,16 @@ public class NewChatsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.chat_item_test:
+                Intent intent = new Intent();
+                intent.setClass(this.getActivity(), NormalChatActivity.class);
+                this.getActivity().startActivity(intent);
+        }
     }
 
     /**

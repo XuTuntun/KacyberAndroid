@@ -17,5 +17,6 @@
     <color name="c">#cccccc</color>
     <color name="black_4a">#4a4a4a</color>
     <color name="more_background_tran">#664a4a4a</color>
+    <color name="chat_noti">#ff5b4a</color>
 
 </resources>
