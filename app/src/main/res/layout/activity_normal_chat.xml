@@ -51,8 +51,80 @@
     </RelativeLayout>
 
 
-    <android.inputmethodservice.KeyboardView
+    <RelativeLayout
+        android:id="@+id/message_tool_box"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_height="45dp"
+        android:background="#f4f4f6"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/chat_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/chatspage_voice_iconx"/>
+
+        <ImageView
+            android:id="@+id/chat_add_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="11dp"
+            android:background="@drawable/chatspage_secret_more_icon"/>
+
+        <ImageView
+            android:id="@+id/chat_moji_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/chat_add_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/chatspage_secret_voice_icon"/>
+
+        <com.melink.bqmmsdk.widget.BQMMEditView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/chat_moji_icon"
+            android:layout_toRightOf="@id/chat_voice"
+            android:layout_marginRight="9dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:hint="  Write a message"
+            android:textColorHint="#85b7f2"
+            android:textSize="15dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/chats_search"/>
+
+        <com.melink.bqmmsdk.widget.BQMMSendButton
+            android:id="@+id/chat_send"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:text="Send"
+            android:textSize="13dp"
+            android:textColor="@color/white"
+            android:background="@drawable/send_back"
+            android:visibility="invisible"/>
+
+
+    </RelativeLayout>
+
+    <com.melink.bqmmsdk.ui.keyboard.BQMMKeyboard
+        android:id="@+id/chat_msg_input_box"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:visibility="gone" />
+
+    <!--<android.inputmethodservice.KeyboardView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"/>-->
 </RelativeLayout>

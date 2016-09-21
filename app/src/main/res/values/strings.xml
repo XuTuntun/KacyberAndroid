@@ -4,4 +4,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="contact_search_tint">Search for moments, friends or brands</string>
+    <string name="countries_and_areas">Uganda</string>
+    <string name="your_phone_number">Phone Number</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login_description">By signing up, you automatically agree with</string>
+    <string name="terms_and_description"><u>KaCyber terms and conditions</u></string>
+    <string name="login_with">Log In with</string>
+
+
 </resources>

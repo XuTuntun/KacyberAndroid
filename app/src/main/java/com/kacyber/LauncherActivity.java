@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.kacyber.ActAndFrg.LoginActivity;
 import com.kacyber.View.MainActivity;
 import com.kacyber.tools.SystemBarTintManager;
 
@@ -99,12 +100,26 @@ public class LauncherActivity extends AppCompatActivity {
             }
 
             public void onAnimationEnd(Animation animation) {
-                Intent intent = new Intent();
-                intent.setClass(context, MainActivity.class);
 
-                startActivity(intent);
-                finish();
-                // mImageView.startAnimation(mFadeOut);
+                /**
+                 * 跳转登录界面
+                 */
+                boolean temple = true;
+                if (temple) {
+                    Intent loginIntent = new Intent();
+                    loginIntent.setClass(context, LoginActivity.class);
+                    startActivity(loginIntent);
+                    finish();
+                }
+                /**
+                 * 跳转MainActivity
+                 */
+                else {
+                    Intent mainIntent = new Intent();
+                    mainIntent.setClass(context, MainActivity.class);
+                    startActivity(mainIntent);
+                    finish();
+                }
             }
         });
         mFadeOut.setAnimationListener(new Animation.AnimationListener() {

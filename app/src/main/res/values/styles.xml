@@ -13,8 +13,9 @@
         <!--<item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>-->
     </style>
 
-
-
+    <!--<style name="horizontal_slide" parent="android:Theme.NoTitleBar">-->
+        <!--<item name="android:windowAnimationStyle">@style/AnimFade2</item>-->
+    <!--</style>-->
 
 
 </resources>

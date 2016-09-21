@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#3ea1f5</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#3ea1f5</color>
     <color name="activity_bg">#f1f0f6</color>
     <color name="tab_color">#ffbb4d</color>
     <color name="tab_unsel_color">#999999</color>
@@ -18,5 +18,6 @@
     <color name="black_4a">#4a4a4a</color>
     <color name="more_background_tran">#664a4a4a</color>
     <color name="chat_noti">#ff5b4a</color>
+    <color name="hint">#D7D7D7</color>
 
 </resources>

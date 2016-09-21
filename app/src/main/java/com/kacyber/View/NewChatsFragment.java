@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import com.androidquery.AQuery;
 import com.kacyber.ActAndFrg.NormalChatActivity;
 import com.kacyber.R;
+//import com.melink.bqmmsdk.ui.store.EmojiPackageDetail;
+//import com.melink.bqmmsdk.ui.store.EmojiPackageList;
+//import com.melink.bqmmsdk.ui.store.EmojiPackageSetting;
+//import com.melink.bqmmsdk.ui.store.EmojiPackageSort;
 
 /**
  * A simple {@link Fragment} subclass.
