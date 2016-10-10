@@ -1,17 +1,22 @@
 package com.kacyber.View;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.androidquery.AQuery;
 import com.kacyber.ActAndFrg.NormalChatActivity;
+import com.kacyber.Control.MFGT;
 import com.kacyber.R;
+import com.kacyber.dialog.ActionItem;
+import com.kacyber.dialog.TitlePopup;
 //import com.melink.bqmmsdk.ui.store.EmojiPackageDetail;
 //import com.melink.bqmmsdk.ui.store.EmojiPackageList;
 //import com.melink.bqmmsdk.ui.store.EmojiPackageSetting;
@@ -28,14 +33,21 @@ import com.kacyber.R;
 public class NewChatsFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static String TAG = NewChatsFragment.class.getName();
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private static Activity context;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+
+    private TitlePopup titlePopup;
 
     public NewChatsFragment() {
         // Required empty public constructor
@@ -66,6 +78,7 @@ public class NewChatsFragment extends Fragment implements View.OnClickListener{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        context= this.getActivity();
     }
 
     @Override
@@ -74,11 +87,49 @@ public class NewChatsFragment extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_chats, container, false);
 
+        initPopWindow();
         AQuery aQuery = new AQuery(view);
         aQuery.id(R.id.chat_item_test).clickable(true).clicked(this);
-
+        aQuery.id(R.id.chats_fragment_add).clickable(true).clicked(this);
         return view;
     }
+
+    private void initPopWindow() {
+        titlePopup = new TitlePopup(this.getActivity(), ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        titlePopup.setItemOnClickListener(onitemClick);
+        // 给标题栏弹窗添加子类
+        titlePopup.addAction(new ActionItem(this.getActivity(), R.string.menu_groupchat,
+                R.drawable.chatspage_group_icon));
+        titlePopup.addAction(new ActionItem(this.getActivity(), R.string.menu_addfriend,
+                R.drawable.chatspage_add_icon));
+        titlePopup.addAction(new ActionItem(this.getActivity(), R.string.menu_qrcode,
+                R.drawable.chatspage_scan_icon));
+    }
+
+    private TitlePopup.OnItemOnClickListener onitemClick = new TitlePopup.OnItemOnClickListener() {
+
+        @Override
+        public void onItemClick(ActionItem item, int position) {
+            switch (position) {
+                case 0:// 发起群聊
+//                    MFGT.gotoCommon(, getString(R.string.menu_groupchat));
+                    break;
+                case 1:// 添加朋友
+//                    MFGT.gotoCommon(MainActivity.this, getString(R.string.menu_addfriend));
+//                    MFGT.startActivity(MainActivity.this, NearByActivity.class);
+                    //TODO
+                    break;
+                case 2:// 扫一扫
+                    //TODO
+                    MFGT.gotoZXCode(context);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -111,6 +162,11 @@ public class NewChatsFragment extends Fragment implements View.OnClickListener{
                 Intent intent = new Intent();
                 intent.setClass(this.getActivity(), NormalChatActivity.class);
                 this.getActivity().startActivity(intent);
+                break;
+            case R.id.chats_fragment_add:
+                Log.e(TAG, "right corner clicked titlePopup is " + titlePopup);
+                titlePopup.show(context.findViewById(R.id.chats_header));
+                break;
         }
     }
 

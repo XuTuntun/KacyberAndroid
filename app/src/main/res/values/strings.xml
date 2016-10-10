@@ -10,6 +10,12 @@
     <string name="login_description">By signing up, you automatically agree with</string>
     <string name="terms_and_description"><u>KaCyber terms and conditions</u></string>
     <string name="login_with">Log In with</string>
+    <string name="def_more">Pull up to load more</string>
+    <string name="discover_txt_pengyouquan">Moments</string>
+    <string name="menu_groupchat">Group Chat</string>
+    <string name="menu_addfriend">Add Contacts</string>
+    <string name="menu_qrcode">Scan QR Code</string>
+    <string name="profile_txt_mycode">My QR Code</string>
 
 
 </resources>
