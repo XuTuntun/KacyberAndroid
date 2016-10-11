@@ -21,7 +21,7 @@ public class KacyberRestClient {
     /**
      * Set appkey header
      */
-    public static void setAppkeyHeader(String appkey) {
+    public static void setAppkeyHeader() {
 
         client.addHeader("appkey", Constants.APP_KEY);
     }

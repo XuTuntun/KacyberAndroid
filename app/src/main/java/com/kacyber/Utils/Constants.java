@@ -27,14 +27,20 @@ public class Constants {
      * this is for Running Music
      */
 //    public static String BASE_URL = "http://facelending.com:83";
-    public static String BASE_URL = "http://api.runningmusic.cn";
-    /**
-     * qiuxiang test
-     */
+    public static String BASE_URL = "http://api.zowalk.cn";
+
     public static String access_token;
     //    public static String BASE_URL = "http://10.15.27.212:5000";
+
+
     public static String PLAYLIST_URL = BASE_URL + "/api/playlist/";
     public static String MUSIC_IN_PLAYLIST_URL = BASE_URL + "/api/playlist";
+
+    /**
+     * The Kacyber URL part
+     */
+
+    public static final String DISCOVER_MAIN = BASE_URL + "/im/discover/list";
     public static final String LOGIN_URL = BASE_URL + "/api/app_auth/";
     public static final String CHANNEL_URL = BASE_URL + "/api/channel/";
     public static final String LOGOUT_URL = BASE_URL + "/api/user/logout/";

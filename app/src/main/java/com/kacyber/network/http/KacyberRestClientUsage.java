@@ -20,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +47,38 @@ public class KacyberRestClientUsage {
         KacyberRestClient.setTokenHeader(token);
     }
 
+    public void setAppkeyHeader() {
+        KacyberRestClient.setAppkeyHeader();
+    }
+
+    public void getDiscoverMainPage() {
+        setAppkeyHeader();
+
+        Log.e(TAG, "get Discover Main Page");
+
+        KacyberRestClient.get(Constants.DISCOVER_MAIN, null, new HttpResponseHandler() {
+
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+
+                String responseBody = null;
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    JSONArray jsonArray = new JSONArray(responseBody);
+
+                    Log.e(TAG, "response array is " + jsonArray );
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
     public void getFavMusic(String token) {
         setTokenHeader(token);
         Log.e(TAG, "getFavMusic token is " + token);
@@ -54,9 +88,13 @@ public class KacyberRestClientUsage {
                 String responseBody = null;
                 try {
                     responseBody = new String(responseBytes, Constants.CHARSET);
-                    JSONArray jsonArray = new JSONArray(responseBody);
+                    JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
 
-                    Log.e(TAG, "response array is " + jsonArray);
+                    Log.e(TAG, "response array is " + jsonObject);
+
+                    JSONArray hotDeals = jsonObject.getJSONArray("hotDeals");
+                    JSONArray trendingItems = jsonObject.getJSONArray("trendingItems");
+                    JSONArray recommendItems = jsonObject.getJSONArray("recommendItems");
 //                    if (jsonArray!=null) {
 //                        ArrayList<Music> musicArrayList = new ArrayList<Music>();
 //                        for (int i=0; i < jsonArray.length(); i++) {
