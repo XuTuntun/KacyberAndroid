@@ -14,16 +14,22 @@ import com.alibaba.fastjson.JSON;
 import com.kacyber.Utils.Constants;
 import com.kacyber.Utils.PackageInfoUtil;
 import com.kacyber.Utils.Util;
+import com.kacyber.event.DealMerchantListEvent;
+import com.kacyber.model.Deal;
+import com.kacyber.model.EventItem;
+import com.kacyber.model.DealMerchant;
+import com.kacyber.model.TrendingItem;
 import com.kacyber.network.service.NetStatus;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+
+import io.realm.Realm;
 
 
 public class KacyberRestClientUsage {
@@ -79,6 +85,66 @@ public class KacyberRestClientUsage {
         });
     }
 
+
+    public void getCategoryById(int categoryId) {
+        setAppkeyHeader();
+
+        Log.e(TAG, "get Discover Main Page");
+        AndroidRequestParams params = new AndroidRequestParams();
+        params.put("categoryId", categoryId);
+
+        KacyberRestClient.post(Constants.DISCOVER_MAIN, params, new HttpResponseHandler() {
+
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+
+                String responseBody = null;
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    JSONArray jsonArray = new JSONArray(responseBody);
+
+                    Log.e(TAG, "response array is " + jsonArray );
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
+    public void getMerchantsBySuperDeal() {
+        setAppkeyHeader();
+
+        Log.e(TAG, "get merchants by super deal");
+
+        KacyberRestClient.get(Constants.DEAL_MERCHANT_LIST, null, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody=null;
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
+                    JSONArray jsonArray = jsonObject.getJSONArray("merchants");
+                    Realm realm = Realm.getDefaultInstance();
+                    realm.createOrUpdateAllFromJson(DealMerchant.class, jsonArray);
+                    realm.commitTransaction();
+                } catch (Exception e) {
+
+                }
+                EventBus.getDefault().post(new DealMerchantListEvent());
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
     public void getFavMusic(String token) {
         setTokenHeader(token);
         Log.e(TAG, "getFavMusic token is " + token);
@@ -93,8 +159,19 @@ public class KacyberRestClientUsage {
                     Log.e(TAG, "response array is " + jsonObject);
 
                     JSONArray hotDeals = jsonObject.getJSONArray("hotDeals");
+                    Realm realm = Realm.getDefaultInstance();
+                    realm.beginTransaction();
+                    realm.createOrUpdateAllFromJson(Deal.class, hotDeals);
+                    realm.commitTransaction();
+
                     JSONArray trendingItems = jsonObject.getJSONArray("trendingItems");
+                    realm.beginTransaction();
+                    realm.createOrUpdateAllFromJson(TrendingItem.class, trendingItems);
+
                     JSONArray recommendItems = jsonObject.getJSONArray("recommendItems");
+                    realm.beginTransaction();
+                    realm.createOrUpdateAllFromJson(EventItem.class, recommendItems);
+                    realm.getSchema();
 //                    if (jsonArray!=null) {
 //                        ArrayList<Music> musicArrayList = new ArrayList<Music>();
 //                        for (int i=0; i < jsonArray.length(); i++) {

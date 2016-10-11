@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/discover_header"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
         android:background="@color/colorPrimaryDark">
 
         <RelativeLayout
@@ -85,264 +84,342 @@
 
     </RelativeLayout>
 
-    <ScrollView
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-
-    </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/discover_view_pager_container"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/discover_view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="170dp" />
-
-
-        <!--<com.kacyber.PageIndicator.CirclePageIndicator-->
-        <!--android:id="@+id/discover_pager_indicator"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:padding="3dp"-->
-        <!--android:layout_gravity="center_horizontal|bottom"-->
-        <!--android:layout_marginBottom="60dp" />-->
-
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/discover_header_split"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/tab_unsel_color" />
-
-    <RelativeLayout
-        android:id="@+id/discover_deal_container"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-        <TextView
-            android:id="@+id/discover_deal_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="DEAL"
-            android:textColor="#ff9200"
-            android:textSize="36dp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/discover_deal_split"
-            android:layout_width="1dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/discover_deal_text"
-            android:background="@color/tab_unsel_color" />
-
-        <TextView
-            android:id="@+id/dicover_deal_content_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/discover_deal_split"
-            android:text="The price of chicken\n 10 percent off"
-            android:textColor="#666666"
-            android:textSize="13dp" />
-
-        <ImageView
-            android:id="@+id/detail_deal_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/person_more" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:layout_toLeftOf="@id/detail_deal_more"
-            android:background="@drawable/deal_background"
-            android:gravity="center"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="New"
-            android:textColor="#ffffff"
-            android:textSize="13dp" />
-
-
-    </RelativeLayout>
-
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#efeff4" />
-
-    <RelativeLayout
-        android:id="@+id/discover_trending_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/trending_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="Trending"
-            android:textColor="#666666"
-            android:textSize="20dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/discover_header">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/trending_text"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/discover_view_pager_container"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/discover_view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp" />
+
+
+                <com.kacyber.PageIndicator.CirclePageIndicator
+                    android:id="@+id/discover_pager_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_margin="1dp"
+                    android:background="#ffffff"
+                    android:padding="2dp" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/discover_header_split"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/unsel_split" />
 
             <RelativeLayout
+                android:id="@+id/discover_deal_container"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:background="@color/colorPrimaryDark">
+                android:layout_height="60dp">
+
+                <ImageView
+                    android:id="@+id/discover_deal_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/discoverpage_deals_image" />
+
+                <ImageView
+                    android:id="@+id/discover_deal_split"
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/discover_deal_text"
+                    android:background="#cccccc" />
+
+
+                <ImageView
+                    android:id="@+id/detail_deal_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/person_more" />
+
+                <TextView
+                    android:id="@+id/discover_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_toLeftOf="@id/detail_deal_more"
+                    android:background="@drawable/deal_background"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="New"
+                    android:textColor="#ffffff"
+                    android:textSize="13dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center_vertical|left"
-                    android:background="@color/background_f4"
-                    android:layout_alignParentBottom="true"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toLeftOf="@id/discover_new"
+                    android:layout_toRightOf="@id/discover_deal_split"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/trending_1_title"
+                        android:id="@+id/discover_deal_title_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
-                        android:layout_marginRight="7dp"
-                        android:text="Corso Ristorante"
-                        android:textColor="@color/text_6"
-                        android:textSize="10dp"/>
-                    <TextView
-                        android:id="@+id/trending_1_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
-                        android:layout_marginRight="7dp"
+                        android:layout_gravity="center"
+                        android:lines="1"
                         android:text="The price of chicken 10 percent off"
-                        android:textColor="@color/text_9"
-                        android:textSize="8dp"/>
+                        android:textColor="#666666"
+                        android:textSize="13dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/discvoer_deal_map_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/discoverpage_map_icon" />
+
+                        <TextView
+                            android:id="@+id/discover_deal_address_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="New Town, Salzburg ~500m"
+                            android:textSize="11dp"
+                            android:layout_marginLeft="5dp"
+                            android:lines="1"
+                            android:textColor="#999999"/>
+
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
 
-                android:background="@color/colorPrimaryDark">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#efeff4" />
+
+            <RelativeLayout
+                android:id="@+id/discover_trending_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/trending_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Trending"
+                    android:textColor="#666666"
+                    android:textSize="20dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center_vertical|left"
-                    android:background="@color/background_f4"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/trending_text"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/trending_2_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
-                        android:layout_marginRight="7dp"
-                        android:text="Corso Ristorante"
-                        android:textColor="@color/text_6"
-                        android:textSize="10dp"/>
-                    <TextView
-                        android:id="@+id/trending_2_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
-                        android:layout_marginRight="7dp"
-                        android:text="The price of chicken 10 percent off"
-                        android:textColor="@color/text_9"
-                        android:textSize="8dp"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimaryDark">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/background_f4"
+                            android:gravity="center_vertical|left"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/trending_1_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginRight="7dp"
+                                android:text="Corso Ristorante"
+                                android:textColor="@color/text_6"
+                                android:textSize="10dp" />
+
+                            <TextView
+                                android:id="@+id/trending_1_description"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginRight="7dp"
+                                android:text="The price of chicken 10 percent off"
+                                android:textColor="@color/text_9"
+                                android:textSize="8dp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/trending_1_image"
+                            android:layout_height="80dp"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/discoverpage_trending_pic1"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimaryDark">
+
+                        <ImageView
+                            android:id="@+id/trending_2_image"
+                            android:layout_height="80dp"
+                            android:layout_width="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:background="@drawable/discoverpage_trending_pic2"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/background_f4"
+                            android:gravity="center_vertical|left"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/trending_2_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginRight="7dp"
+                                android:text="Corso Ristorante"
+                                android:textColor="@color/text_6"
+                                android:textSize="10dp" />
+
+                            <TextView
+                                android:id="@+id/trending_2_description"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginRight="7dp"
+                                android:text="The price of chicken 10 percent off"
+                                android:textColor="@color/text_9"
+                                android:textSize="8dp" />
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
                 </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/events_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/events_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Events"
+                    android:textColor="#666666"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/events_text"
+                    android:background="@color/split_e5" />
+
+                <ImageView
+                    android:id="@+id/events_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/events_text"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="11dp"
+                    android:background="@drawable/discoverpage_events_pic1"
+                    android:minHeight="120dp" />
+
+                <ImageView
+                    android:id="@+id/events_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/events_1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="11dp"
+                    android:background="@drawable/discoverpage_events_pic2"
+                    android:minHeight="120dp" />
 
 
             </RelativeLayout>
 
+
+
+            <RelativeLayout
+                android:id="@+id/recommended_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/recommended_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Recommended"
+                    android:textColor="#666666"
+                    android:textSize="20dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"/>
+
+
+            </RelativeLayout>
         </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/events_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/events_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="Events"
-            android:textColor="#666666"
-            android:textSize="20dp" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/split_e5"
-            android:layout_below="@id/events_text"/>
-
-        <ImageView
-            android:id="@+id/events_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="120dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="11dp"
-            android:layout_below="@id/events_text"
-            android:background="@color/colorPrimaryDark"/>
-
-        <ImageView
-            android:id="@+id/events_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="120dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="11dp"
-            android:layout_below="@id/events_1"
-            android:background="@color/colorPrimaryDark"/>
-
-
-
-
-
-
-
-    </RelativeLayout>
-
-
-</LinearLayout>
+</RelativeLayout>

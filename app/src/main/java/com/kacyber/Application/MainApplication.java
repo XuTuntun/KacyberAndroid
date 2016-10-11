@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import io.realm.Realm;
+
 //import com.melink.bqmmsdk.sdk.BQMM;
 
 /**
@@ -14,6 +16,7 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Realm.init(this);
 
 //        try {
 //            Bundle bundle = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData;

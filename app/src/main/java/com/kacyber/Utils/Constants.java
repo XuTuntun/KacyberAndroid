@@ -41,6 +41,10 @@ public class Constants {
      */
 
     public static final String DISCOVER_MAIN = BASE_URL + "/im/discover/list";
+    public static final String DEAL_MERCHANT_LIST = BASE_URL + "/deal/merchant/list";
+
+
+
     public static final String LOGIN_URL = BASE_URL + "/api/app_auth/";
     public static final String CHANNEL_URL = BASE_URL + "/api/channel/";
     public static final String LOGOUT_URL = BASE_URL + "/api/user/logout/";
@@ -69,11 +73,6 @@ public class Constants {
     public static final String PGC_MUSIC_LIST = BASE_URL + "/api/playlist/5625e85d0307b34b1d881857/";
 
     public static final String TENCENT_APP_URL_OLD = "http://qzs.qq.com/open/yyb/good_new_app/details.html?id=614570823670180785125&appid=42248887&from=timeline&isappinstalled=0&g_f=&srctype=&ticket=";
-
-
-
-
-
 
 
     static {

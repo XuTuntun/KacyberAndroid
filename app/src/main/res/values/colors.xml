@@ -20,5 +20,6 @@
     <color name="chat_noti">#ff5b4a</color>
     <color name="hint">#D7D7D7</color>
     <color name="transparent">#00000000</color>
+    <color name="unsel_split">#e5e5e5</color>
 
 </resources>

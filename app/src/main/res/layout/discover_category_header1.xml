@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,6 +11,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/discover_channel_super_deals"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -19,84 +21,86 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/discoverpage_deals_icon"/>
+                android:background="@drawable/discoverpage_deals_icon" />
 
             <TextView
-                android:text="Deals"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:text="Super Deals"
 
-                android:textSize="8dp"
-                android:textColor="@color/text_grey_77"/>
+                android:textColor="@color/text_grey_77"
+                android:textSize="8dp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/discover_channel_food_drink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/discoverpage_hotels_icon"/>
+                android:background="@drawable/discoverpage_food_icon" />
 
             <TextView
-                android:text="Hotels"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:text="Food &amp; Beverages"
 
-                android:textSize="8dp"
-                android:textColor="@color/text_grey_77"/>
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/discoverpage_food_icon"/>
-
-            <TextView
-                android:text="Food Beverages"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="10dp"
-
-                android:textSize="8dp"
-                android:textColor="@color/text_grey_77"/>
+                android:textColor="@color/text_grey_77"
+                android:textSize="8dp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/discover_channel_shopping"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/discoverpage_shopping_icon"/>
+                android:background="@drawable/discoverpage_shopping_icon" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Shopping"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="10dp"
 
-                android:textSize="8dp"
-                android:textColor="@color/text_grey_77"/>
+                android:textColor="@color/text_grey_77"
+                android:textSize="8dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/discover_channel_entertainment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_entertainment_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Food &amp; Beverages"
+
+                android:textColor="@color/text_grey_77"
+                android:textSize="8dp" />
         </LinearLayout>
 
 
@@ -109,6 +113,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/discover_channel_tour_travel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -118,83 +123,85 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/discoverpage_transport_icon"/>
+                android:background="@drawable/discoverpage_travel_icon" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Transport"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="8dp"
-                android:textColor="@color/text_grey_77"/>
+                android:textColor="@color/text_grey_77"
+                android:textSize="8dp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/discover_channel_agricultrue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/discoverpage_transport_icon"/>
+                android:background="@drawable/discoverpage_agricuture_icon" />
 
             <TextView
-                android:text="Financial Services"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:text="Agriculture"
 
-                android:textSize="8dp"
-                android:textColor="@color/text_grey_77"/>
+                android:textColor="@color/text_grey_77"
+                android:textSize="8dp" />
         </LinearLayout>
 
 
-
         <LinearLayout
+            android:id="@+id/discover_channel_finance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/discoverpage_health_icon"/>
+                android:background="@drawable/discoverpage_services_icon" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Health &amp; medical"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="10dp"
 
-                android:textSize="8dp"
-                android:textColor="@color/text_grey_77"/>
+                android:textColor="@color/text_grey_77"
+                android:textSize="8dp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/discover_channel_real_estate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/discoverpage_shopping_icon"/>
+                android:background="@drawable/discoverpage_estate_icon" />
 
             <TextView
-                android:text="Shopping"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:text="Real Estate"
 
-                android:textSize="8dp"
-                android:textColor="@color/text_grey_77"/>
+                android:textColor="@color/text_grey_77"
+                android:textSize="8dp" />
         </LinearLayout>
 
 

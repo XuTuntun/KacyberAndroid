@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efeff4"
+    tools:context="com.kacyber.ActAndFrg.SuperDealFragment">
+
+    <RelativeLayout
+        android:id="@+id/super_deal_header"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/normal_chats_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:background="@drawable/detailspage_nav_return_icon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@id/normal_chats_back"
+            android:text="Discover"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/chat_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Super Deals"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"
+            android:background="@drawable/discoverpage_nav_search_icon" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/super_deal_header_image"
+        android:layout_height="125dp"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="6dp"
+        android:layout_below="@id/super_deal_header"
+        android:background="@drawable/discoverpage_events_pic1"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/super_deal_merchant_list"
+        android:layout_below="@id/super_deal_header_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="Give your brand or busines a voice on KaCyber and connect\nwith the people who matter to you"
+        android:textSize="12dp"
+        android:textColor="#999999"/>
+
+</RelativeLayout>
