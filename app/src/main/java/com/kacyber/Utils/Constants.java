@@ -58,6 +58,8 @@ public class Constants {
     public static final String START_PAGE_AD = BASE_URL + "/app/start_page";
     public static final String EVENT_LIST_URL = BASE_URL + "/app/activities";
 
+    public static final String APP_KEY = "a2FjeWJlcl8xNDc0MTk0NDAwMTA1";
+
     public static final String PGC_MUSIC_LIST = BASE_URL + "/api/playlist/5625e85d0307b34b1d881857/";
 
     public static final String TENCENT_APP_URL_OLD = "http://qzs.qq.com/open/yyb/good_new_app/details.html?id=614570823670180785125&appid=42248887&from=timeline&isappinstalled=0&g_f=&srctype=&ticket=";

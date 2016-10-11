@@ -1,10 +1,10 @@
 package com.kacyber.network.http;
 
 
+import android.util.Log;
+
+import com.kacyber.Utils.Util;
 import com.loopj.android.http.AsyncHttpClient;
-import com.runningmusic.utils.Log;
-import com.runningmusic.utils.RMCrashHandler;
-import com.runningmusic.utils.Util;
 
 public class AndroidRestClient extends AsyncHttpClient {
     public static String TAG = AndroidRestClient.class.getName();
@@ -45,7 +45,7 @@ public class AndroidRestClient extends AsyncHttpClient {
             }
             // 添加Android版本
             url += "&v=" + Util.getVersion() + "%20android";
-            url += "&vc=" + RMCrashHandler.getVersionCode() + "%20android";
+//            url += "&vc=" + RMCrashHandler.getVersionCode() + "%20android";
             post(url, params, responseHandler);
         } else {
             if (Util.DEBUG) {
@@ -84,7 +84,7 @@ public class AndroidRestClient extends AsyncHttpClient {
             }
             // 添加Android版本
             url += "&v=" + Util.getVersion() + "%20android";
-            url += "&vc=" + RMCrashHandler.getVersionCode() + "%20android";
+//            url += "&vc=" + RMCrashHandler.getVersionCode() + "%20android";
             post(url, params, responseHandler);
         } else {
             if (Util.DEBUG) {

@@ -4,7 +4,9 @@ package com.kacyber.network.http;
 import android.app.AlertDialog;
 import android.content.Context;
 
-public class RunsicRestClient {
+import com.kacyber.Utils.Constants;
+
+public class KacyberRestClient {
 
     private static AndroidRestClient client = new AndroidRestClient();
 
@@ -14,6 +16,14 @@ public class RunsicRestClient {
     public static void setTokenHeader(String token) {
 
         client.addHeader("token", token);
+    }
+
+    /**
+     * Set appkey header
+     */
+    public static void setAppkeyHeader(String appkey) {
+
+        client.addHeader("appkey", Constants.APP_KEY);
     }
 
     /**

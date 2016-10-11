@@ -8,78 +8,65 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.runningmusic.event.CurrentMusicEvent;
-import com.runningmusic.event.EventRequestEvent;
-import com.runningmusic.event.FavMusicListEvent;
-import com.runningmusic.event.HotListGroupEvent;
-import com.runningmusic.event.RunListGroupEvent;
-import com.runningmusic.event.TempoListResult;
-import com.runningmusic.music.Event;
-import com.runningmusic.music.Music;
-import com.runningmusic.music.MusicRequestCallback;
-import com.runningmusic.music.PlayListEntity;
-import com.runningmusic.network.service.NetStatus;
-import com.runningmusic.service.RunsicService;
-import com.runningmusic.utils.Constants;
-import com.runningmusic.utils.Log;
-import com.runningmusic.utils.PackageInfoUtil;
-import com.runningmusic.utils.Util;
+import com.kacyber.Utils.Constants;
+import com.kacyber.Utils.PackageInfoUtil;
+import com.kacyber.Utils.Util;
+import com.kacyber.network.service.NetStatus;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class RunsicRestClientUsage {
+public class KacyberRestClientUsage {
 
-    public static String TAG = RunsicRestClientUsage.class.getName();
+    public static String TAG = KacyberRestClientUsage.class.getName();
 
-    private static RunsicRestClientUsage singleton;
+    private static KacyberRestClientUsage singleton;
 
-    private MusicRequestCallback musicRequestCallback;
+    private KacyberRestClientUsage() {
 
-    private RunsicRestClientUsage() {
-        musicRequestCallback = RunsicService.getInstance();
+//        musicRequestCallback = RunsicService.getInstance();
     }
 
-    public synchronized static RunsicRestClientUsage getInstance() {
+    public synchronized static KacyberRestClientUsage getInstance() {
         if (singleton == null)
-            singleton = new RunsicRestClientUsage();
+            singleton = new KacyberRestClientUsage();
         return singleton;
     }
 
     public void setTokenHeader(String token) {
-        RunsicRestClient.setTokenHeader(token);
+        KacyberRestClient.setTokenHeader(token);
     }
+
     public void getFavMusic(String token) {
         setTokenHeader(token);
         Log.e(TAG, "getFavMusic token is " + token);
-        RunsicRestClient.get(Constants.USER_FAV_MUSIC, null, new HttpResponseHandler() {
+        KacyberRestClient.get(Constants.USER_FAV_MUSIC, null, new HttpResponseHandler() {
             @Override
             public void onSuccess(byte[] responseBytes) {
                 String responseBody = null;
                 try {
-                    responseBody = new String (responseBytes, Constants.CHARSET);
+                    responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONArray jsonArray = new JSONArray(responseBody);
 
                     Log.e(TAG, "response array is " + jsonArray);
-                    if (jsonArray!=null) {
-                        ArrayList<Music> musicArrayList = new ArrayList<Music>();
-                        for (int i=0; i < jsonArray.length(); i++) {
-                            Music music = new Music();
-                            music.initWithJSONObject(jsonArray.getJSONObject(i));
-                            musicArrayList.add(music);
-                        }
-                        Log.e(TAG, "FavMusicResult posted");
-                        EventBus.getDefault().post(new FavMusicListEvent(musicArrayList));
-                    }
+//                    if (jsonArray!=null) {
+//                        ArrayList<Music> musicArrayList = new ArrayList<Music>();
+//                        for (int i=0; i < jsonArray.length(); i++) {
+//                            Music music = new Music();
+//                            music.initWithJSONObject(jsonArray.getJSONObject(i));
+//                            musicArrayList.add(music);
+//                        }
+//                        Log.e(TAG, "FavMusicResult posted");
+//                        EventBus.getDefault().post(new FavMusicListEvent(musicArrayList));
+//                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -96,7 +83,7 @@ public class RunsicRestClientUsage {
         setTokenHeader(token);
         AndroidRequestParams params = new AndroidRequestParams();
         Log.e(TAG, "setFavMusic token is " + token + "MUSIC_ID is " + musicID);
-        RunsicRestClient.post(Constants.USER_LIKE_MUSIC + "/" + musicID + "/like", params, new HttpResponseHandler() {
+        KacyberRestClient.post(Constants.USER_LIKE_MUSIC + "/" + musicID + "/like", params, new HttpResponseHandler() {
             @Override
             public void onSuccess(byte[] responseBytes) {
                 String responseBody = null;
@@ -116,7 +103,7 @@ public class RunsicRestClientUsage {
 
             @Override
             public void onFailure(int errorCode) {
-                Log.e(TAG, ""+ errorCode);
+                Log.e(TAG, "" + errorCode);
 
             }
         });
@@ -126,7 +113,7 @@ public class RunsicRestClientUsage {
         setTokenHeader(token);
         AndroidRequestParams params = new AndroidRequestParams();
         Log.e(TAG, "setFavMusic token is " + token + "MUSIC_ID is " + musicID);
-        RunsicRestClient.post(Constants.USER_LIKE_MUSIC + "/" + musicID + "/unlike", params, new HttpResponseHandler() {
+        KacyberRestClient.post(Constants.USER_LIKE_MUSIC + "/" + musicID + "/unlike", params, new HttpResponseHandler() {
             @Override
             public void onSuccess(byte[] responseBytes) {
                 String responseBody = null;
@@ -146,41 +133,41 @@ public class RunsicRestClientUsage {
 
             @Override
             public void onFailure(int errorCode) {
-                Log.e(TAG, ""+ errorCode);
+                Log.e(TAG, "" + errorCode);
 
             }
         });
     }
 
-    public void getPlayListGroup( final String codeOrPlayListID) {
-        RunsicRestClient.get(Constants.PLAYLIST_GROUP+codeOrPlayListID, null, new HttpResponseHandler() {
+    public void getPlayListGroup(final String codeOrPlayListID) {
+        KacyberRestClient.get(Constants.PLAYLIST_GROUP + codeOrPlayListID, null, new HttpResponseHandler() {
             @Override
             public void onSuccess(byte[] responseBytes) {
                 try {
-                    String responseBody = new String (responseBytes, Constants.CHARSET);
+                    String responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONObject jsonObject = new JSONObject(responseBody);
                     JSONArray jsonArray = jsonObject.getJSONArray("items");
                     if (Util.DEBUG) {
                         Log.e(TAG, "responseBody is " + responseBody);
-                        Log.e(TAG, "jsonArray is "+ jsonArray);
+                        Log.e(TAG, "jsonArray is " + jsonArray);
                     }
 
 
                     if (jsonArray != null) {
 
-                        ArrayList<PlayListEntity> listGroupResult = new ArrayList<PlayListEntity>();
-                        for (int i=0; i < jsonArray.length(); i++) {
-                            PlayListEntity playListEntity = new PlayListEntity();
-                            playListEntity.initWithJSONObject(jsonArray.getJSONObject(i));
-                            listGroupResult.add(playListEntity);
-//                            Play music = new Music();
-//                            music.initWithJSONObject(jsonArray.getJSONObject(i));
-                        }
-                        if (codeOrPlayListID.equals("featured")) {
-                            EventBus.getDefault().post(new HotListGroupEvent(listGroupResult));
-                        } else {
-                            EventBus.getDefault().post(new RunListGroupEvent(listGroupResult));
-                        }
+//                        ArrayList<PlayListEntity> listGroupResult = new ArrayList<PlayListEntity>();
+//                        for (int i=0; i < jsonArray.length(); i++) {
+//                            PlayListEntity playListEntity = new PlayListEntity();
+//                            playListEntity.initWithJSONObject(jsonArray.getJSONObject(i));
+//                            listGroupResult.add(playListEntity);
+////                            Play music = new Music();
+////                            music.initWithJSONObject(jsonArray.getJSONObject(i));
+//                        }
+//                        if (codeOrPlayListID.equals("featured")) {
+//                            EventBus.getDefault().post(new HotListGroupEvent(listGroupResult));
+//                        } else {
+//                            EventBus.getDefault().post(new RunListGroupEvent(listGroupResult));
+//                        }
 
                     }
                 } catch (Exception e) {
@@ -200,24 +187,24 @@ public class RunsicRestClientUsage {
         AndroidRequestParams params = new AndroidRequestParams();
         params.put("tempo", tempo);
 
-        RunsicRestClient.get(Constants.PLAY_ON_TEMPO, params, new HttpResponseHandler() {
+        KacyberRestClient.get(Constants.PLAY_ON_TEMPO, params, new HttpResponseHandler() {
             @Override
             public void onSuccess(byte[] responseBytes) {
                 try {
-                    String responseBody = new String (responseBytes, Constants.CHARSET);
+                    String responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONObject jsonObject = new JSONObject(responseBody);
 
                     if (Util.DEBUG) {
                         Log.e(TAG, "responseBody is " + jsonObject);
-                        Log.e(TAG, "jsonArray is "+ jsonObject);
+                        Log.e(TAG, "jsonArray is " + jsonObject);
                     }
 
 
                     if (jsonObject != null) {
 
-                            Music music = new Music();
-                            music.initWithJSONObject(jsonObject);
-                            RunsicService.getInstance().playOnTempoCallback(music);
+//                            Music music = new Music();
+//                            music.initWithJSONObject(jsonObject);
+//                            RunsicService.getInstance().playOnTempoCallback(music);
 
                     }
                 } catch (Exception e) {
@@ -238,7 +225,7 @@ public class RunsicRestClientUsage {
 //    public void getPGCList() {
 //
 //
-//        RunsicRestClient.get(Constants.PGC_MUSIC_LIST, null, new HttpResponseHandler() {
+//        KacyberRestClient.get(Constants.PGC_MUSIC_LIST, null, new HttpResponseHandler() {
 //            @Override
 //            public void onSuccess(byte[] responseBytes) {
 //                try {
@@ -281,28 +268,28 @@ public class RunsicRestClientUsage {
         AndroidRequestParams params = new AndroidRequestParams();
         params.put("tempo", tempo);
 
-        RunsicRestClient.get(Constants.PLAY_LIST_ON_TEMPO, params, new HttpResponseHandler() {
+        KacyberRestClient.get(Constants.PLAY_LIST_ON_TEMPO, params, new HttpResponseHandler() {
             @Override
             public void onSuccess(byte[] responseBytes) {
                 try {
-                    String responseBody = new String (responseBytes, Constants.CHARSET);
+                    String responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONArray jsonArray = new JSONArray(responseBody);
                     if (Util.DEBUG) {
                         Log.e(TAG, "responseBody is " + responseBody);
-                        Log.e(TAG, "jsonArray is "+ jsonArray);
+                        Log.e(TAG, "jsonArray is " + jsonArray);
                     }
 
                     if (jsonArray != null) {
-                        ArrayList<Music> musicArrayList = new ArrayList<Music>();
-                        for (int i=0; i < jsonArray.length(); i++) {
-                            Music music = new Music();
-                            music.initWithJSONObject(jsonArray.getJSONObject(i));
-                            if (i == 0) {
-                                EventBus.getDefault().post(new CurrentMusicEvent(music));
-                            }
-                            musicArrayList.add(music);
-                        }
-                        EventBus.getDefault().post(new TempoListResult(musicArrayList));
+//                        ArrayList<Music> musicArrayList = new ArrayList<Music>();
+//                        for (int i=0; i < jsonArray.length(); i++) {
+//                            Music music = new Music();
+//                            music.initWithJSONObject(jsonArray.getJSONObject(i));
+//                            if (i == 0) {
+//                                EventBus.getDefault().post(new CurrentMusicEvent(music));
+//                            }
+//                            musicArrayList.add(music);
+//                        }
+//                        EventBus.getDefault().post(new TempoListResult(musicArrayList));
 
                     }
                 } catch (Exception e) {
@@ -323,27 +310,27 @@ public class RunsicRestClientUsage {
         AndroidRequestParams params = new AndroidRequestParams();
         params.put("tempo", tempo);
 
-        RunsicRestClient.get(Constants.PLAY_LIST_ON_TEMPO, params, new HttpResponseHandler() {
+        KacyberRestClient.get(Constants.PLAY_LIST_ON_TEMPO, params, new HttpResponseHandler() {
             @Override
             public void onSuccess(byte[] responseBytes) {
                 try {
-                    String responseBody = new String (responseBytes, Constants.CHARSET);
+                    String responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONArray jsonArray = new JSONArray(responseBody);
                     if (Util.DEBUG) {
                         Log.e(TAG, "responseBody is " + responseBody);
-                        Log.e(TAG, "jsonArray is "+ jsonArray);
+                        Log.e(TAG, "jsonArray is " + jsonArray);
                     }
 
 
                     if (jsonArray != null) {
-                        for (int i=0; i < jsonArray.length(); i++) {
-                            Music music = new Music();
-                            music.initWithJSONObject(jsonArray.getJSONObject(i));
-                            RunsicService.getInstance().addCurrentList(music);
-                        }
+//                        for (int i=0; i < jsonArray.length(); i++) {
+//                            Music music = new Music();
+//                            music.initWithJSONObject(jsonArray.getJSONObject(i));
+//                            RunsicService.getInstance().addCurrentList(music);
+//                        }
                     }
 
-                    musicRequestCallback.onPlayonTempoMoreListCallback();
+//                    musicRequestCallback.onPlayonTempoMoreListCallback();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -358,7 +345,7 @@ public class RunsicRestClientUsage {
     }
 
     public void getEventList() {
-        RunsicRestClient.getWithoutParams(Constants.EVENT_LIST_URL, new HttpResponseHandler() {
+        KacyberRestClient.getWithoutParams(Constants.EVENT_LIST_URL, new HttpResponseHandler() {
             @Override
             public void onSuccess(byte[] responseBytes) {
                 try {
@@ -369,18 +356,19 @@ public class RunsicRestClientUsage {
                         Log.e(TAG, "getEventList " + "responseBody is " + responseBody);
                         Log.e(TAG, "getEventList " + "jsonArray is " + jsonArray);
                     }
-                    ArrayList<Event> eventList = new ArrayList<Event>();
+
+//                    ArrayList<Event> eventList = new ArrayList<Event>();
 
                     if (jsonArray != null) {
-                        for (int i = 0; i< jsonArray.length(); i++) {
-                            Event event = new Event();
-                            event.initWithJSONObject(jsonArray.getJSONObject(i));
-                            eventList.add(event);
-                        }
+//                        for (int i = 0; i < jsonArray.length(); i++) {
+//                            Event event = new Event();
+//                            event.initWithJSONObject(jsonArray.getJSONObject(i));
+//                            eventList.add(event);
+//                        }
 
                     }
 
-                    EventBus.getDefault().post(new EventRequestEvent(eventList));
+//                    EventBus.getDefault().post(new EventRequestEvent(eventList));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -393,7 +381,6 @@ public class RunsicRestClientUsage {
             }
         });
     }
-
 
 
     public void addUser() {
@@ -414,7 +401,7 @@ public class RunsicRestClientUsage {
 
             params.put("user", userString);
 
-            RunsicRestClient.post(Constants.SERVER_IP, params, new HttpResponseHandler() {
+            KacyberRestClient.post(Constants.SERVER_IP, params, new HttpResponseHandler() {
 
                 @Override
                 public void onSuccess(byte[] responseBytes) {
@@ -446,7 +433,6 @@ public class RunsicRestClientUsage {
     }
 
     /**
-     *
      * @param obj
      */
     public void createUser(Object obj) {
@@ -468,7 +454,7 @@ public class RunsicRestClientUsage {
         params.put("avatar", userInfo.get("headimgurl").toString());
         params.put("from", "android");
 
-        RunsicRestClient.post(Constants.CREATE_USER, params, new HttpResponseHandler() {
+        KacyberRestClient.post(Constants.CREATE_USER, params, new HttpResponseHandler() {
 
             @Override
             public void onSuccess(byte[] responseBytes) {
@@ -508,12 +494,12 @@ public class RunsicRestClientUsage {
     }
 
 
-    public void saveSportToServer(String token, String base64String ) {
+    public void saveSportToServer(String token, String base64String) {
         setTokenHeader(token);
         AndroidRequestParams params = new AndroidRequestParams();
         params.put("data", base64String);
         Log.e(TAG, "saveSportToServer token is " + token);
-        RunsicRestClient.post(Constants.USER_SPORT_SAVE, params, new HttpResponseHandler() {
+        KacyberRestClient.post(Constants.USER_SPORT_SAVE, params, new HttpResponseHandler() {
             @Override
             public void onSuccess(byte[] responseBytes) {
                 String responseBody = null;
@@ -533,7 +519,7 @@ public class RunsicRestClientUsage {
 
             @Override
             public void onFailure(int errorCode) {
-                Log.e(TAG, ""+ errorCode);
+                Log.e(TAG, "" + errorCode);
 
             }
         });
@@ -541,13 +527,13 @@ public class RunsicRestClientUsage {
 
     /**
      * 获取用户信息
-     * 
+     *
      * @param sh
      */
 
     /**
      * 本地获取用户数据
-     * 
+     *
      * @return
      */
     public Map<String, String> getUserInfoFromLocal() {
@@ -579,13 +565,9 @@ public class RunsicRestClientUsage {
     }
 
 
-
     private enum TypeInfo {
         Tencent, Sinaweibo, Wandoujia
     }
-
-
-
 
 
     public synchronized void setInstallSource() {
@@ -657,7 +639,7 @@ public class RunsicRestClientUsage {
         params.put("cmd", "setinstallsource");
         params.put("ctx", jsonObject.toString());
 
-        RunsicRestClient.post(Constants.SERVER_IP, params, new HttpResponseHandler() {
+        KacyberRestClient.post(Constants.SERVER_IP, params, new HttpResponseHandler() {
 
             @Override
             public void onSuccess(byte[] responseBytes) {
@@ -711,7 +693,7 @@ public class RunsicRestClientUsage {
             return;
         }
 
-        RunsicRestClient.post(Constants.SERVER_IP, params, new HttpResponseHandler() {
+        KacyberRestClient.post(Constants.SERVER_IP, params, new HttpResponseHandler() {
 
             @Override
             public void onSuccess(byte[] responseBytes) {
@@ -786,7 +768,7 @@ public class RunsicRestClientUsage {
         String userString = JSON.toJSONString(userMap);
         params.put("user", userString);
 
-        RunsicRestClient.post(Constants.SERVER_IP, params, new HttpResponseHandler() {
+        KacyberRestClient.post(Constants.SERVER_IP, params, new HttpResponseHandler() {
 
             @Override
             public void onSuccess(byte[] responseBytes) {
@@ -817,16 +799,11 @@ public class RunsicRestClientUsage {
     }
 
 
-
-
-
-
-
     public boolean isUidChanged = false;
 
     /**
      * 修改Uid的状态
-     * 
+     *
      * @param uid
      */
     public void setIsUidChanged(int uid) {

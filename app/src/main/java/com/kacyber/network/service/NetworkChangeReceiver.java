@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
+import android.util.Log;
 
-import com.runningmusic.utils.Log;
 
 public class NetworkChangeReceiver extends BroadcastReceiver {  
   
@@ -22,14 +22,14 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                 && State.CONNECTED != wifiState  
                 && State.CONNECTED == mobileState) 
         {  
-        	Log.i("zhouhan", "3G connected");
+        	Log.i("fuming", "3G connected");
         	
         } 
         else if (wifiState != null && mobileState != null  
                 && State.CONNECTED != wifiState  
                 && State.CONNECTED != mobileState) 
         {
-        	Log.i("zhouhan", "network disconnected");
+        	Log.i("fuming", "network disconnected");
         }
         else if (wifiState != null && State.CONNECTED == wifiState) 
         {

@@ -1,7 +1,6 @@
 package com.kacyber.network.http;
 
-import com.runningmusic.network.http.HttpReqResult.ResultType;
-import com.runningmusic.utils.Log;
+import android.util.Log;
 
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
@@ -57,7 +56,7 @@ public class HttpClientHelper {
 	}
 
 	public static HttpReqResult executePost(String url, HttpEntity httpEntity) {
-		HttpReqResult result = new HttpReqResult(ResultType.FAILED, "网络请求失败。");
+		HttpReqResult result = new HttpReqResult(HttpReqResult.ResultType.FAILED, "网络请求失败。");
 		if (url == null || url.length() == 0 || httpEntity == null) {
 			return result;
 		}
@@ -82,23 +81,23 @@ public class HttpClientHelper {
 					// 得到返回的网页源码
 					String resource = new String(EntityUtils.toByteArray(responseEntity), "UTF-8").trim();
 					Log.d("resource", resource);
-					return new HttpReqResult(ResultType.SUCCESS, resource);
+					return new HttpReqResult(HttpReqResult.ResultType.SUCCESS, resource);
 				} else {
-					return new HttpReqResult(ResultType.FAILED, "您的网络不给力 (" + Status + ")，请稍后再试。");
+					return new HttpReqResult(HttpReqResult.ResultType.FAILED, "您的网络不给力 (" + Status + ")，请稍后再试。");
 				}
 			} else {
-				return new HttpReqResult(ResultType.FAILED, "您的网络不给力，请稍后再试。");
+				return new HttpReqResult(HttpReqResult.ResultType.FAILED, "您的网络不给力，请稍后再试。");
 			}
 		} catch (UnknownHostException e) {
-			return new HttpReqResult(ResultType.FAILED, "您的网络不给力,无法解析服务器地址。");
+			return new HttpReqResult(HttpReqResult.ResultType.FAILED, "您的网络不给力,无法解析服务器地址。");
 		} catch (SocketTimeoutException e) {
-			return new HttpReqResult(ResultType.FAILED, "您的网络不给力,请求超时啦。");
+			return new HttpReqResult(HttpReqResult.ResultType.FAILED, "您的网络不给力,请求超时啦。");
 		} catch (SSLException e) {
-			return new HttpReqResult(ResultType.FAILED, "站点证书校验失败。");
+			return new HttpReqResult(HttpReqResult.ResultType.FAILED, "站点证书校验失败。");
 		} catch (FileNotFoundException e) {
-			return new HttpReqResult(ResultType.FAILED, "上传文件错误。");
+			return new HttpReqResult(HttpReqResult.ResultType.FAILED, "上传文件错误。");
 		} catch (Exception e) {
-			return new HttpReqResult(ResultType.FAILED, "您的网络不给力，请稍后再试。");
+			return new HttpReqResult(HttpReqResult.ResultType.FAILED, "您的网络不给力，请稍后再试。");
 		} finally {
 			abortConnection(httpPost, httpClient);
 		}

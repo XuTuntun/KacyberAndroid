@@ -6,9 +6,10 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.util.Log;
 
-import com.runningmusic.utils.Log;
-import com.runningmusic.utils.Util;
+import com.kacyber.Utils.Util;
+
 
 public class NetworkStateReceiver extends BroadcastReceiver {
 
@@ -48,7 +49,7 @@ public class NetworkStateReceiver extends BroadcastReceiver {
             }
             if (msg != null) {
                 if (Util.DEBUG)
-                    Log.i("FM", msg);
+                    Log.i("fuming", msg);
             }
         } else if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

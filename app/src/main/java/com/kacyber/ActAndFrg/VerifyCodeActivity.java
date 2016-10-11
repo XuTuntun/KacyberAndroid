@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.androidquery.AQuery;
 import com.kacyber.R;
-import com.kacyber.Service.MqttService;
+//import com.kacyber.Service.MqttService;
 import com.kacyber.View.MainActivity;
 
 public class VerifyCodeActivity extends AppCompatActivity implements View.OnClickListener{
@@ -47,7 +47,7 @@ public class VerifyCodeActivity extends AppCompatActivity implements View.OnClic
                 Intent mainIntent = new Intent();
                 mainIntent.setClass(this, MainActivity.class);
                 startActivity(mainIntent);
-                MqttService.actionStart(this);
+//                MqttService.actionStart(this);
                 finish();
                 break;
         }
