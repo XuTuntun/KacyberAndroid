@@ -255,6 +255,7 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
+                        android:id="@+id/trending_1"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:layout_marginRight="8dp"
@@ -303,6 +304,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/trending_2"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:layout_marginLeft="8dp"
@@ -419,6 +421,11 @@
 
 
             </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/discover_main_page_merchant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

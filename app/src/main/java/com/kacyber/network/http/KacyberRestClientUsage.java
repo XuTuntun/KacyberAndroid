@@ -15,6 +15,7 @@ import com.kacyber.Utils.Constants;
 import com.kacyber.Utils.PackageInfoUtil;
 import com.kacyber.Utils.Util;
 import com.kacyber.event.DealMerchantListEvent;
+import com.kacyber.event.MainMerchantListEvent;
 import com.kacyber.model.Deal;
 import com.kacyber.model.EventItem;
 import com.kacyber.model.DealMerchant;
@@ -26,10 +27,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 
 public class KacyberRestClientUsage {
@@ -68,14 +72,21 @@ public class KacyberRestClientUsage {
             public void onSuccess(byte[] responseBytes) {
 
                 String responseBody = null;
+                ArrayList<DealMerchant> dealMerchants = new ArrayList<DealMerchant>();
                 try {
                     responseBody = new String(responseBytes, Constants.CHARSET);
-                    JSONArray jsonArray = new JSONArray(responseBody);
-
-                    Log.e(TAG, "response array is " + jsonArray );
+                    JSONObject jsonObject = new JSONObject(responseBody);
+                    JSONObject jsonData = jsonObject.getJSONObject("data");
+                    JSONArray merchantsJSON = jsonData.getJSONArray("recommendItems");
+                    for(int i = 0; i < merchantsJSON.length(); i++) {
+                        DealMerchant dealMerchant = new DealMerchant();
+                        dealMerchant.initWithJSONObject(merchantsJSON.getJSONObject(i));
+                        dealMerchants.add(dealMerchant);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                EventBus.getDefault().post(new MainMerchantListEvent(dealMerchants));
             }
 
             @Override
@@ -103,7 +114,7 @@ public class KacyberRestClientUsage {
                     responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONArray jsonArray = new JSONArray(responseBody);
 
-                    Log.e(TAG, "response array is " + jsonArray );
+                    Log.e(TAG, "response array is " + jsonArray);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -124,18 +135,67 @@ public class KacyberRestClientUsage {
         KacyberRestClient.get(Constants.DEAL_MERCHANT_LIST, null, new HttpResponseHandler() {
             @Override
             public void onSuccess(byte[] responseBytes) {
-                String responseBody=null;
+                String responseBody = null;
+                ArrayList<DealMerchant> dealMerchantList = new ArrayList<DealMerchant>();
+
                 try {
                     responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
                     JSONArray jsonArray = jsonObject.getJSONArray("merchants");
-                    Realm realm = Realm.getDefaultInstance();
-                    realm.createOrUpdateAllFromJson(DealMerchant.class, jsonArray);
-                    realm.commitTransaction();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        DealMerchant dealMerchant = new DealMerchant();
+                        dealMerchant.initWithJSONObject(jsonArray.getJSONObject(i));
+                        dealMerchantList.add(dealMerchant);
+                    }
+
+//                    Realm realm = Realm.getDefaultInstance();
+//                    realm.createOrUpdateAllFromJson(DealMerchant.class, jsonArray);
+//                    realm.commitTransaction();
+//                    Log.e(TAG, "" + realm.where(DealMerchant.class).findAll().size());
                 } catch (Exception e) {
 
+                    e.printStackTrace();
                 }
-                EventBus.getDefault().post(new DealMerchantListEvent());
+                EventBus.getDefault().post(new DealMerchantListEvent(dealMerchantList));
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
+    public void getMerchantDetailById(long merchantId) {
+        setAppkeyHeader();
+
+        Log.e(TAG, "GET_MERCHANT_BY_ID ");
+
+        KacyberRestClient.get(Constants.GET_MERCHANT_BY_ID + merchantId, null, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody = null;
+                ArrayList<DealMerchant> dealMerchantList = new ArrayList<DealMerchant>();
+
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
+                    JSONArray jsonArray = jsonObject.getJSONArray("merchants");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        DealMerchant dealMerchant = new DealMerchant();
+                        dealMerchant.initWithJSONObject(jsonArray.getJSONObject(i));
+                        dealMerchantList.add(dealMerchant);
+                    }
+
+//                    Realm realm = Realm.getDefaultInstance();
+//                    realm.createOrUpdateAllFromJson(DealMerchant.class, jsonArray);
+//                    realm.commitTransaction();
+//                    Log.e(TAG, "" + realm.where(DealMerchant.class).findAll().size());
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+                EventBus.getDefault().post(new DealMerchantListEvent(dealMerchantList));
             }
 
             @Override

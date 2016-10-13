@@ -29,6 +29,7 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="com.allenjuns.wechat2.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.allenjuns.wechat2.permission.MIPUSH_RECEIVE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".Application.MainApplication"
@@ -55,25 +56,28 @@
             android:name=".ActAndFrg.SingUpActivity"
             android:windowSoftInputMode="stateAlwaysVisible" />
         <activity android:name=".ActAndFrg.ProfileActivity" />
+        <activity android:name=".ActAndFrg.SuperDealActivity" />
+        <activity android:name=".ActAndFrg.MerchantDetailActivity" />
+        <activity android:name=".ActAndFrg.WebViewActivity" />
 
-        <service
-            android:name=".Service.MqttService"
-            android:enabled="true"
-            android:exported="true"></service>
-
-
-
-        <receiver android:name=".Service.MqttService.MyReceiver" android:enabled="true" android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+        <!-- <service -->
+        <!-- android:name=".Service.MqttService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true"></service> -->
 
 
-        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+        <!-- <receiver android:name=".Service.MqttService.MyReceiver" android:enabled="true" android:exported="false"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.BOOT_COMPLETED" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+
+        <activity
+            android:name=".ActAndFrg.DiscoverCitiesActivity"
+            android:label="@string/title_activity_discover_cities"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ActAndFrg.DiscoverSearchActivity" />
+        <activity android:name=".ActAndFrg.CategoryActivity"></activity>
     </application>
-
-
-
 
 </manifest>

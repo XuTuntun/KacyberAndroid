@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="top"
+    android:background="#ffffff"
+    tools:context="com.kacyber.ActAndFrg.MerchantReviewsFragment">
+
+    <RelativeLayout
+        android:id="@+id/merchant_reviews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/detail_orange_split2"
+            android:layout_width="2dp"
+            android:layout_height="10dp"
+            android:background="@color/orange"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:id="@+id/features_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recent Reviews"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="#4a4a4a"
+            android:layout_toRightOf="@id/detail_orange_split2"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/merchant_reviews_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

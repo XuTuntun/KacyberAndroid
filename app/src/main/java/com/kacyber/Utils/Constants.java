@@ -27,7 +27,12 @@ public class Constants {
      * this is for Running Music
      */
 //    public static String BASE_URL = "http://facelending.com:83";
+    //Aliyun
     public static String BASE_URL = "http://api.zowalk.cn";
+    //AWS
+//    public static String BASE_URL = "http://api.kacyber.com";
+
+
 
     public static String access_token;
     //    public static String BASE_URL = "http://10.15.27.212:5000";
@@ -36,12 +41,14 @@ public class Constants {
     public static String PLAYLIST_URL = BASE_URL + "/api/playlist/";
     public static String MUSIC_IN_PLAYLIST_URL = BASE_URL + "/api/playlist";
 
+    public static String KACYBER_MAIN_PAGE = "http://www.sina.com.cn";
     /**
      * The Kacyber URL part
      */
 
     public static final String DISCOVER_MAIN = BASE_URL + "/im/discover/list";
     public static final String DEAL_MERCHANT_LIST = BASE_URL + "/deal/merchant/list";
+    public static final String GET_MERCHANT_BY_ID = BASE_URL + "/merchant/info/get?merchantId=";
 
 
 

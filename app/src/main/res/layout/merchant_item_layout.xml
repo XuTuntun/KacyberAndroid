@@ -25,17 +25,137 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@id/merchant_item_image"
-        android:gravity="left|center_vertical">
+        android:gravity="left|center_vertical"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/merchant_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="House of Prime Rib"
+            android:textColor="@color/text_6"
             android:textSize="11dp"
-            android:textStyle="bold"
-            android:textColor="@color/text_6"/>
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/merchant_review_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/merchant_review_star_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="6dp"
+                android:text="5.0"
+                android:textColor="@color/orange"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:id="@+id/review_start_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_star_icon_highlighted" />
+
+            <ImageView
+                android:id="@+id/review_start_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_star_icon_highlighted" />
+
+            <ImageView
+                android:id="@+id/review_start_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_star_icon_highlighted" />
+
+            <ImageView
+                android:id="@+id/review_start_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_star_icon_highlighted" />
+
+            <ImageView
+                android:id="@+id/review_start_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discoverpage_star_icon_highlighted" />
+
+            <TextView
+                android:id="@+id/merchant_review_star_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="120"
+                android:textColor="@color/text_9"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="Reviews"
+                android:textColor="@color/text_9"
+                android:textSize="12dp" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/merchant_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Finalcial District, Embarcadero"
+            android:textColor="@color/text_9"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/merchant_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Mediterranean"
+            android:textColor="@color/text_9"
+            android:textSize="12dp" />
+
+        <LinearLayout
+            android:id="@+id/merchant_last_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/merchant_browse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3.6dp"
+                android:background="@drawable/discoverpage_browse_icon" />
+
+            <TextView
+                android:id="@+id/merchant_browse_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="120"
+                android:textColor="@color/text_9"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/merchant_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="~500m"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/text_9"
+                android:textSize="12dp" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
+
 
 </RelativeLayout>

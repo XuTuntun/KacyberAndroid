@@ -3,6 +3,7 @@ package com.kacyber.dialog;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,7 +114,7 @@ public class TitlePopup extends PopupWindow {
     /**
      * 显示弹窗列表界面
      */
-    public void show(View view) {
+    public boolean show(View view) {
         // 获得点击屏幕的位置坐标
         view.getLocationOnScreen(mLocation);
 
@@ -122,6 +123,7 @@ public class TitlePopup extends PopupWindow {
                 mLocation[1] + view.getHeight());
 
         // 判断是否需要添加或更新列表子类项
+        Log.e("FM", "mIsDirty " + mIsDirty);
         if (mIsDirty) {
             populateActions();
         }
@@ -129,6 +131,8 @@ public class TitlePopup extends PopupWindow {
         // 显示弹窗的位置
         showAtLocation(view, popupGravity, mScreenWidth - LIST_PADDING
                 - (getWidth() / 2), mRect.bottom);
+
+        return true;
     }
 
     /**

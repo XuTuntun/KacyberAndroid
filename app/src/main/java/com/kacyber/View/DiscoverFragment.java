@@ -1,45 +1,68 @@
 package com.kacyber.View;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.EventLog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
 import com.androidquery.AQuery;
 
-import com.kacyber.ActAndFrg.SuperDealFragment;
+import com.kacyber.ActAndFrg.DiscoverCitiesActivity;
+import com.kacyber.ActAndFrg.MerchantDetailActivity;
+import com.kacyber.ActAndFrg.SuperDealActivity;
+import com.kacyber.ActAndFrg.WebViewActivity;
+import com.kacyber.Control.MFGT;
 import com.kacyber.PageIndicator.CirclePageIndicator;
 import com.kacyber.R;
+import com.kacyber.Utils.Constants;
+import com.kacyber.adapter.DealMerchantItemClickListener;
+import com.kacyber.adapter.DealMerchantListAdapter;
+import com.kacyber.dialog.ActionItem;
+import com.kacyber.dialog.TitlePopup;
+import com.kacyber.event.MainMerchantListEvent;
+import com.kacyber.model.DealMerchant;
 import com.kacyber.network.http.KacyberRestClientUsage;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
 
 /**
  * Created by guofuming on 12/8/16.
  */
-public class DiscoverFragment extends Fragment implements View.OnClickListener {
+public class DiscoverFragment extends Fragment implements View.OnClickListener, DealMerchantItemClickListener {
 
     private static String TAG = DiscoverFragment.class.getName();
 
     private ViewPager viewPager = null;
     private CirclePageIndicator circlePageIndicator;
     private Context applicationContext;
-
+    private RecyclerView recyclerView;
     private AQuery aQuery;
-
+    private ArrayList<DealMerchant> merchantArrayList;
+    private TitlePopup titlePopup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        KacyberRestClientUsage.getInstance().getDiscoverMainPage();
         View view = inflater.inflate(R.layout.discover_layout, null);
         aQuery = new AQuery(view);
 
+
+        EventBus.getDefault().register(this);
         applicationContext = getActivity().getApplicationContext();
 
         viewPager = (ViewPager) view.findViewById(R.id.discover_view_pager);
@@ -52,9 +75,42 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
 //        circlePageIndicator.setFillColor(Color.GRAY);
 //        circlePageIndicator.setGap(10);
 
+        recyclerView = (RecyclerView) view.findViewById(R.id.discover_main_page_merchant);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
         aQuery.id(R.id.discover_deal_container).clickable(true).clicked(this);
+        aQuery.id(R.id.discover_place).clickable(true).clicked(this);
+        aQuery.id(R.id.trending_1).clickable(true).clicked(this);
+        aQuery.id(R.id.trending_2).clickable(true).clicked(this);
+        aQuery.id(R.id.events_1).clickable(true).clicked(this);
+        aQuery.id(R.id.events_2).clickable(true).clicked(this);
+        aQuery.id(R.id.discover_more).clickable(true).clicked(this);
+        initPopWindow();
 
         return view;
+    }
+
+
+    private void initPopWindow() {
+        titlePopup = new TitlePopup(this.getActivity(), ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        titlePopup.setItemOnClickListener(onitemClick);
+        // 给标题栏弹窗添加子类
+        titlePopup.addAction(new ActionItem(this.getActivity(), "Reviews",
+                R.drawable.discoverpage_reviews_icon));
+        titlePopup.addAction(new ActionItem(this.getActivity(), "Bookmarks",
+                R.drawable.discoverpage_favorites_icon));
+        titlePopup.addAction(new ActionItem(this.getActivity(), "Add Business",
+                R.drawable.discoverpage_add_icon));
+        titlePopup.addAction(new ActionItem(this.getActivity(), "Help",
+                R.drawable.discoverpage_help_icon));
+
+        titlePopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                aQuery.id(R.id.discover_more).background(R.drawable.discoverpage_nav_more_icon);
+            }
+        });
     }
 
     public void ChannelClickedByViewId(int id) {
@@ -80,11 +136,106 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.discover_deal_container:
-                SuperDealFragment superDealFragment = new SuperDealFragment();
-                FragmentManager fragmentManager = this.getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame, superDealFragment).commit();
+//                SuperDealActivity superDealFragment = new SuperDealActivity();
+//                FragmentManager fragmentManager = this.getFragmentManager();
+//                fragmentManager.beginTransaction().replace(R.id.content_frame, superDealFragment).commit();
+                Intent intent = new Intent();
+                intent.setClass(this.getActivity(), SuperDealActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.discover_place:
+
+                Intent cityIntent = new Intent();
+                cityIntent.setClass(this.getActivity(), DiscoverCitiesActivity.class);
+                startActivity(cityIntent);
+                break;
+
+            case R.id.trending_1:
+
+                Intent trendingIntent = new Intent();
+
+                trendingIntent.putExtra("title", "Trending");
+                trendingIntent.putExtra("url", Constants.KACYBER_MAIN_PAGE);
+                trendingIntent.setClass(this.getActivity(), WebViewActivity.class);
+
+                startActivity(trendingIntent);
+
+                break;
+
+            case R.id.trending_2:
+
+                Intent trendingIntent2 = new Intent();
+                trendingIntent2.setClass(this.getActivity(), WebViewActivity.class);
+                trendingIntent2.putExtra("title", "Trending");
+                trendingIntent2.putExtra("url", Constants.KACYBER_MAIN_PAGE);
+                startActivity(trendingIntent2);
+
+                break;
+
+            case R.id.events_1:
+
+                Intent eventIntent = new Intent();
+                eventIntent.setClass(this.getActivity(), WebViewActivity.class);
+                eventIntent.putExtra("title", "Event");
+                eventIntent.putExtra("url", Constants.KACYBER_MAIN_PAGE);
+                startActivity(eventIntent);
+
+                break;
+
+            case R.id.events_2:
+
+                Intent eventIntent2 = new Intent();
+                eventIntent2.setClass(this.getActivity(), WebViewActivity.class);
+                eventIntent2.putExtra("title", "Event");
+                eventIntent2.putExtra("url", Constants.KACYBER_MAIN_PAGE);
+                startActivity(eventIntent2);
+
+                break;
+
+            case R.id.discover_more:
+                Log.e(TAG, "right corner clicked titlePopup is " + titlePopup);
+                titlePopup.show(this.getActivity().findViewById(R.id.discover_header));
+                aQuery.id(R.id.discover_more).background(R.drawable.discoverpage_nav_more_smile_icon);
+                break;
+
+            default:
+
+                break;
+
+
+
         }
     }
+
+    @Subscribe
+    public void onMainMerchantListEvent(MainMerchantListEvent event) {
+        merchantArrayList = event.merchantList;
+        DealMerchantListAdapter dealMerchantListAdapter = new DealMerchantListAdapter(this.getContext(), R.layout.merchant_item_layout, merchantArrayList);
+        dealMerchantListAdapter.setOnItemClickListener(this);
+        recyclerView.setAdapter(dealMerchantListAdapter);
+    }
+
+    @Override
+    public void onItemClick(View viewm, int position) {
+        if (merchantArrayList!=null) {
+            if (merchantArrayList.size()!=0) {
+                DealMerchant dealMerchant = merchantArrayList.get(position);
+                Intent intent = new Intent();
+                intent.setClass(this.getActivity(), MerchantDetailActivity.class);
+                intent.putExtra("merchantID", dealMerchant.merchantId);
+                this.startActivity(intent);
+            }
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
+
 
     class ViewPageAdapter extends PagerAdapter {
         private static final int COUNT = 2;
@@ -229,4 +380,32 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         }
 
     }
+
+    private TitlePopup.OnItemOnClickListener onitemClick = new TitlePopup.OnItemOnClickListener() {
+
+        @Override
+        public void onItemClick(ActionItem item, int position) {
+            switch (position) {
+                case 0:// 发起群聊
+//                    MFGT.gotoCommon(, getString(R.string.menu_groupchat));
+                    break;
+                case 1:// 添加朋友
+//                    MFGT.gotoCommon(MainActivity.this, getString(R.string.menu_addfriend));
+//                    MFGT.startActivity(MainActivity.this, NearByActivity.class);
+                    //TODO
+                    break;
+                case 2:// 扫一扫
+                    //TODO
+//                    MFGT.gotoZXCode(context);
+                    break;
+                case 3:
+
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+
 }

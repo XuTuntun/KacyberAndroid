@@ -16,6 +16,7 @@
     <string name="menu_addfriend">Add Contacts</string>
     <string name="menu_qrcode">Scan QR Code</string>
     <string name="profile_txt_mycode">My QR Code</string>
+    <string name="title_activity_discover_cities">DiscoverCitiesActivity</string>
 
 
 </resources>
