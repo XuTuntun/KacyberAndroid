@@ -14,6 +14,8 @@ import com.alibaba.fastjson.JSON;
 import com.kacyber.Utils.Constants;
 import com.kacyber.Utils.PackageInfoUtil;
 import com.kacyber.Utils.Util;
+import com.kacyber.adapter.SortModelCities;
+import com.kacyber.event.AllCitiesEvent;
 import com.kacyber.event.DealMerchantListEvent;
 import com.kacyber.event.MainMerchantListEvent;
 import com.kacyber.model.Deal;
@@ -29,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.realm.Realm;
@@ -96,6 +99,45 @@ public class KacyberRestClientUsage {
         });
     }
 
+    public void getDiscoverMainPageByLatLng(double longitude, double latitude) {
+
+        setAppkeyHeader();
+
+        Log.e(TAG, "get Discover Main Page");
+
+        AndroidRequestParams params = new AndroidRequestParams();
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
+        KacyberRestClient.get(Constants.DISCOVER_MAIN, params, new HttpResponseHandler() {
+
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+
+                String responseBody = null;
+                ArrayList<DealMerchant> dealMerchants = new ArrayList<DealMerchant>();
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    JSONObject jsonObject = new JSONObject(responseBody);
+                    JSONObject jsonData = jsonObject.getJSONObject("data");
+                    JSONArray merchantsJSON = jsonData.getJSONArray("recommendItems");
+                    for(int i = 0; i < merchantsJSON.length(); i++) {
+                        DealMerchant dealMerchant = new DealMerchant();
+                        dealMerchant.initWithJSONObject(merchantsJSON.getJSONObject(i));
+                        dealMerchants.add(dealMerchant);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                EventBus.getDefault().post(new MainMerchantListEvent(dealMerchants));
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
 
     public void getCategoryById(int categoryId) {
         setAppkeyHeader();
@@ -118,6 +160,70 @@ public class KacyberRestClientUsage {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
+    public void getAllCities() {
+        setAppkeyHeader();
+
+        KacyberRestClient.get(Constants.ALL_CITIES, null, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody = null;
+                ArrayList<SortModelCities> modelCities = new ArrayList<SortModelCities>();
+
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
+                    JSONArray jsonArray = jsonObject.getJSONArray("cities");
+                    for (int i = 0; i < jsonArray.length(); i ++) {
+                        SortModelCities sortModelCity = new SortModelCities();
+                        sortModelCity.initWithJSONObject(jsonArray.getJSONObject(i));
+                        modelCities.add(sortModelCity);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                EventBus.getDefault().post(new AllCitiesEvent(modelCities));
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
+    public void getOverseaCities() {
+        setAppkeyHeader();
+
+        KacyberRestClient.get(Constants.OVERSEA_CITIES, null, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody = null;
+                ArrayList<SortModelCities> modelCities = new ArrayList<SortModelCities>();
+
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
+                    JSONArray jsonArray = jsonObject.getJSONArray("cities");
+                    for (int i = 0; i < jsonArray.length(); i ++) {
+                        SortModelCities sortModelCity = new SortModelCities();
+                        sortModelCity.initWithJSONObject(jsonArray.getJSONObject(i));
+                        modelCities.add(sortModelCity);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                EventBus.getDefault().post(new AllCitiesEvent(modelCities));
             }
 
             @Override
@@ -738,6 +844,8 @@ public class KacyberRestClientUsage {
 
         return userMap;
     }
+
+
 
 
     private enum TypeInfo {

@@ -32,6 +32,7 @@ import com.kacyber.dialog.ActionItem;
 import com.kacyber.dialog.TitlePopup;
 import com.kacyber.event.MainMerchantListEvent;
 import com.kacyber.model.DealMerchant;
+import com.kacyber.network.http.KacyberRestClient;
 import com.kacyber.network.http.KacyberRestClientUsage;
 
 import org.greenrobot.eventbus.EventBus;
@@ -60,7 +61,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
         KacyberRestClientUsage.getInstance().getDiscoverMainPage();
         View view = inflater.inflate(R.layout.discover_layout, null);
         aQuery = new AQuery(view);
-
 
         EventBus.getDefault().register(this);
         applicationContext = getActivity().getApplicationContext();
@@ -148,7 +148,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
 
                 Intent cityIntent = new Intent();
                 cityIntent.setClass(this.getActivity(), DiscoverCitiesActivity.class);
-                startActivity(cityIntent);
+                startActivityForResult(cityIntent, 0);
                 break;
 
             case R.id.trending_1:
@@ -407,5 +407,20 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
         }
     };
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e(TAG, "requestCode is " + requestCode + " resultCode is " + resultCode + " intent is " +data);
+        switch (resultCode) {
+            case Constants.CITY_LIST_OK:
+                Bundle bundle = data.getExtras();
+                String cityName = bundle.getString("cityname");
+                double longitude = bundle.getDouble("longitude");
+                double latitude = bundle.getDouble("latitude");
+                KacyberRestClientUsage.getInstance().getDiscoverMainPageByLatLng(longitude, latitude);
+                aQuery.id(R.id.discover_place_text).text(cityName);
+                break;
+
+        }
+    }
 
 }

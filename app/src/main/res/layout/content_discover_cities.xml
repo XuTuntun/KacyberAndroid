@@ -79,6 +79,32 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:background="#efeff4"
-        android:layout_below="@id/discover_cities_header"/>
+        android:layout_below="@id/discover_cities_header">
+
+        <ListView
+            android:id="@+id/city_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/dialog"
+            android:layout_width="80.0dip"
+            android:layout_height="80.0dip"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="30.0dip"
+            android:visibility="invisible" />
+
+        <com.kacyber.View.SideBar
+            android:id="@+id/city_side_bar"
+            android:layout_width="30.0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center"/>
+
+
+    </FrameLayout>
 
 </RelativeLayout>

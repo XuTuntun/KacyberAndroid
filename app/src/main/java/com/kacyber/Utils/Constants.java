@@ -6,6 +6,7 @@ package com.kacyber.Utils;
 
 public class Constants {
 
+    public static final int CITY_LIST_OK = 100;
     public static Boolean TIME_LINE_MODEL = true;
 
     public static String SERVER_IP;
@@ -28,9 +29,9 @@ public class Constants {
      */
 //    public static String BASE_URL = "http://facelending.com:83";
     //Aliyun
-    public static String BASE_URL = "http://api.zowalk.cn";
+//    public static String BASE_URL = "http://api.zowalk.cn";
     //AWS
-//    public static String BASE_URL = "http://api.kacyber.com";
+    public static String BASE_URL = "http://api.kacyber.com";
 
 
 
@@ -49,6 +50,8 @@ public class Constants {
     public static final String DISCOVER_MAIN = BASE_URL + "/im/discover/list";
     public static final String DEAL_MERCHANT_LIST = BASE_URL + "/deal/merchant/list";
     public static final String GET_MERCHANT_BY_ID = BASE_URL + "/merchant/info/get?merchantId=";
+    public static final String ALL_CITIES = BASE_URL + "/region/all/list";
+    public static final String OVERSEA_CITIES = BASE_URL + "/region/oversea/list";
 
 
 
