@@ -73,7 +73,7 @@
                 android:background="@drawable/discoverpage_health_icon"/>
 
             <TextView
-                android:text="Health &amp; Medical"
+                android:text="Health"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="10dp"
@@ -127,7 +127,7 @@
                 android:background="@drawable/discoverpage_other_icon"/>
 
             <TextView
-                android:text="Services"
+                android:text="Other Services"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="10dp"

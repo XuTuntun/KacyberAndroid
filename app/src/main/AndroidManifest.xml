@@ -77,7 +77,12 @@
             android:label="@string/title_activity_discover_cities"
             android:theme="@style/AppTheme" />
         <activity android:name=".ActAndFrg.DiscoverSearchActivity" />
-        <activity android:name=".ActAndFrg.CategoryActivity"></activity>
+        <activity android:name=".ActAndFrg.CategoryActivity" />
+        <activity
+            android:name=".ActAndFrg.NormalSearchActivity"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity android:name=".ActAndFrg.ReviewsActivity" />
+        <activity android:name=".ActAndFrg.BookmarkActivity"></activity>
     </application>
 
 </manifest>

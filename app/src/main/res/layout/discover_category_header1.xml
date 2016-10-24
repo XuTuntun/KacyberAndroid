@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Food &amp; Beverages"
+                android:text="Leisure"
 
                 android:textColor="@color/text_grey_77"
                 android:textSize="8dp" />

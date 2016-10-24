@@ -15,9 +15,12 @@ import com.kacyber.Utils.Constants;
 import com.kacyber.Utils.PackageInfoUtil;
 import com.kacyber.Utils.Util;
 import com.kacyber.adapter.SortModelCities;
+import com.kacyber.event.AllCategoryEvent;
 import com.kacyber.event.AllCitiesEvent;
+import com.kacyber.event.CategoryMerchantListEvent;
 import com.kacyber.event.DealMerchantListEvent;
 import com.kacyber.event.MainMerchantListEvent;
+import com.kacyber.model.Category;
 import com.kacyber.model.Deal;
 import com.kacyber.model.EventItem;
 import com.kacyber.model.DealMerchant;
@@ -81,7 +84,7 @@ public class KacyberRestClientUsage {
                     JSONObject jsonObject = new JSONObject(responseBody);
                     JSONObject jsonData = jsonObject.getJSONObject("data");
                     JSONArray merchantsJSON = jsonData.getJSONArray("recommendItems");
-                    for(int i = 0; i < merchantsJSON.length(); i++) {
+                    for (int i = 0; i < merchantsJSON.length(); i++) {
                         DealMerchant dealMerchant = new DealMerchant();
                         dealMerchant.initWithJSONObject(merchantsJSON.getJSONObject(i));
                         dealMerchants.add(dealMerchant);
@@ -120,7 +123,7 @@ public class KacyberRestClientUsage {
                     JSONObject jsonObject = new JSONObject(responseBody);
                     JSONObject jsonData = jsonObject.getJSONObject("data");
                     JSONArray merchantsJSON = jsonData.getJSONArray("recommendItems");
-                    for(int i = 0; i < merchantsJSON.length(); i++) {
+                    for (int i = 0; i < merchantsJSON.length(); i++) {
                         DealMerchant dealMerchant = new DealMerchant();
                         dealMerchant.initWithJSONObject(merchantsJSON.getJSONObject(i));
                         dealMerchants.add(dealMerchant);
@@ -139,27 +142,44 @@ public class KacyberRestClientUsage {
     }
 
 
-    public void getCategoryById(int categoryId) {
+    public void getCategory(int categoryId, String lat, String lng, String sortBy, String filters) {
         setAppkeyHeader();
 
-        Log.e(TAG, "get Discover Main Page");
+        Log.e(TAG, "getCategory by categoryID =======" + categoryId);
         AndroidRequestParams params = new AndroidRequestParams();
         params.put("categoryId", categoryId);
+        params.put("lat", lat);
+        params.put("lng", lng);
+        params.put("orderBy", sortBy);
+        params.put("filters", filters);
 
-        KacyberRestClient.post(Constants.DISCOVER_MAIN, params, new HttpResponseHandler() {
+        KacyberRestClient.get(Constants.CATEGORY_SEARCH, params, new HttpResponseHandler() {
 
             @Override
             public void onSuccess(byte[] responseBytes) {
 
                 String responseBody = null;
+
+                ArrayList<DealMerchant> categoryMerchantList = new ArrayList<DealMerchant>();
+
                 try {
                     responseBody = new String(responseBytes, Constants.CHARSET);
-                    JSONArray jsonArray = new JSONArray(responseBody);
+                    Log.e(TAG, "" + responseBody);
 
-                    Log.e(TAG, "response array is " + jsonArray);
+                    JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
+                    JSONArray jsonArray = jsonObject.getJSONArray("merchants");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        DealMerchant dealMerchant = new DealMerchant();
+                        dealMerchant.initWithJSONObject(jsonArray.getJSONObject(i));
+                        categoryMerchantList.add(dealMerchant);
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                EventBus.getDefault().post(new CategoryMerchantListEvent(categoryMerchantList));
+
             }
 
             @Override
@@ -182,7 +202,7 @@ public class KacyberRestClientUsage {
                     responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
                     JSONArray jsonArray = jsonObject.getJSONArray("cities");
-                    for (int i = 0; i < jsonArray.length(); i ++) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         SortModelCities sortModelCity = new SortModelCities();
                         sortModelCity.initWithJSONObject(jsonArray.getJSONObject(i));
                         modelCities.add(sortModelCity);
@@ -214,7 +234,7 @@ public class KacyberRestClientUsage {
                     responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
                     JSONArray jsonArray = jsonObject.getJSONArray("cities");
-                    for (int i = 0; i < jsonArray.length(); i ++) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         SortModelCities sortModelCity = new SortModelCities();
                         sortModelCity.initWithJSONObject(jsonArray.getJSONObject(i));
                         modelCities.add(sortModelCity);
@@ -224,6 +244,37 @@ public class KacyberRestClientUsage {
                 }
 
                 EventBus.getDefault().post(new AllCitiesEvent(modelCities));
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
+    public void getCategoryList() {
+        setAppkeyHeader();
+
+        KacyberRestClient.get(Constants.CATEGORY_LIST, null, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody = null;
+                ArrayList<Category> categoryList = new ArrayList<Category>();
+
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    JSONArray jsonArray = new JSONObject(responseBody).getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        Category category = new Category();
+                        category.initWithJSONObject(jsonArray.getJSONObject(i));
+                            categoryList.add(category);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                EventBus.getDefault().post(new AllCategoryEvent(categoryList));
             }
 
             @Override
@@ -844,8 +895,6 @@ public class KacyberRestClientUsage {
 
         return userMap;
     }
-
-
 
 
     private enum TypeInfo {

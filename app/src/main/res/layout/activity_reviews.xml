@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_category"
+    android:id="@+id/activity_reviews"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/activity_bg"
-    tools:context="com.kacyber.ActAndFrg.CategoryActivity">
+    tools:context="com.kacyber.ActAndFrg.ReviewsActivity">
 
     <RelativeLayout
         android:id="@+id/category_header"
@@ -15,7 +15,7 @@
         android:background="@color/white">
 
         <ImageView
-            android:id="@+id/normal_category_back"
+            android:id="@+id/normal_review_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
-            android:layout_toRightOf="@id/normal_category_back"
+            android:layout_toRightOf="@id/normal_review_back"
             android:text="Discover"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16dp" />
@@ -39,33 +39,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Categories"
+            android:text="Reviews"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/category_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="18dp"
-            android:background="@drawable/categoriespage_nav_search_icon" />
 
     </RelativeLayout>
-
-    <com.warmtel.expandtab.ExpandPopTabView
-        android:id="@+id/category_expandtab"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/category_header"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/super_deal_merchant_list"
-        android:layout_below="@id/category_expandtab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
 
 </RelativeLayout>

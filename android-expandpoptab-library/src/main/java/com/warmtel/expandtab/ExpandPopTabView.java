@@ -2,6 +2,7 @@ package com.warmtel.expandtab;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -45,10 +46,15 @@ public class ExpandPopTabView extends LinearLayout implements OnDismissListener 
         TypedArray a = null;
         try {
             a = context.obtainStyledAttributes(attrs, R.styleable.ExpandPopTabView);
-            mToggleBtnBackground = a.getResourceId(R.styleable.ExpandPopTabView_tab_toggle_btn_bg, -1);
-            mToggleBtnBackgroundColor = a.getColor(R.styleable.ExpandPopTabView_tab_toggle_btn_color, -1);
-            mToggleTextColor = a.getColor(R.styleable.ExpandPopTabView_tab_toggle_btn_font_color,-1);
-            mPopViewBackgroundColor = a.getColor(R.styleable.ExpandPopTabView_tab_pop_bg_color,-1);
+            mToggleBtnBackground = Color.parseColor("#ffffff");
+//                    a.getResourceId(R.styleable.ExpandPopTabView_tab_toggle_btn_bg, -1);
+            mToggleBtnBackgroundColor = Color.WHITE;
+//                    a.getColor(R.styleable.ExpandPopTabView_tab_toggle_btn_color, -1);
+
+            mToggleTextColor = Color.parseColor("#3ea1f5");
+//                    a.getColor(R.styleable.ExpandPopTabView_tab_toggle_btn_font_color,-1);
+            mPopViewBackgroundColor = Color.WHITE;
+                    //a.getColor(R.styleable.ExpandPopTabView_tab_pop_bg_color,-1);
             mToggleTextSize = a.getDimension(R.styleable.ExpandPopTabView_tab_toggle_btn_font_size, -1);
         } catch (Exception e) {
             e.printStackTrace();

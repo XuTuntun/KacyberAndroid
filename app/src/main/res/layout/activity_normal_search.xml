@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_normal_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg"
+    tools:context="com.kacyber.ActAndFrg.NormalSearchActivity">
+
+    <RelativeLayout
+        android:id="@+id/normal_search_header"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/white">
+
+
+
+        <TextView
+            android:id="@+id/back_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_alignParentRight="true"
+            android:text="Cancel"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toLeftOf="@id/back_text"
+            android:background="#f5f5f5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:layout_marginLeft="12dp"
+                android:orientation="horizontal"
+                android:gravity="left|center_vertical"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/chats_search_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/chatspage_search_icon" />
+
+                <EditText
+                    android:id="@+id/search_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom|left"
+                    android:gravity="bottom|left"
+                    android:layout_toRightOf="@id/chats_search_icon"
+                    android:hint="Category  Brand or Keyword"
+                    android:inputType="textAutoComplete"
+                    android:lines="1"
+                    android:textColorHint="@color/text_grey_77"
+                    android:textSize="14dp"
+                    android:textColor="@color/text_grey_77"
+                    android:background="@null"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/search_action"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_below="@id/normal_search_header"
+        android:background="@color/white"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/chats_search_icon_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/chatspage_search_icon" />
+
+        <TextView
+            android:id="@+id/search_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_grey_77"
+            android:textSize="14dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/chats_search_icon_2"
+            android:layout_marginLeft="20dp"
+            android:text="Search ''"/>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

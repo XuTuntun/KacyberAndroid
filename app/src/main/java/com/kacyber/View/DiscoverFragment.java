@@ -18,8 +18,12 @@ import android.widget.PopupWindow;
 
 import com.androidquery.AQuery;
 
+import com.kacyber.ActAndFrg.BookmarkActivity;
+import com.kacyber.ActAndFrg.CategoryActivity;
 import com.kacyber.ActAndFrg.DiscoverCitiesActivity;
 import com.kacyber.ActAndFrg.MerchantDetailActivity;
+import com.kacyber.ActAndFrg.NormalSearchActivity;
+import com.kacyber.ActAndFrg.ReviewsActivity;
 import com.kacyber.ActAndFrg.SuperDealActivity;
 import com.kacyber.ActAndFrg.WebViewActivity;
 import com.kacyber.Control.MFGT;
@@ -85,6 +89,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
         aQuery.id(R.id.events_1).clickable(true).clicked(this);
         aQuery.id(R.id.events_2).clickable(true).clicked(this);
         aQuery.id(R.id.discover_more).clickable(true).clicked(this);
+        aQuery.id(R.id.discover_search).clickable(true).clicked(this);
         initPopWindow();
 
         return view;
@@ -113,7 +118,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
         });
     }
 
-    public void ChannelClickedByViewId(int id) {
+    public void ChannelClickedByViewId(int id, String categoryName) {
         int categoryId = 1;
         switch (id) {
             case R.id.discover_channel_super_deals:
@@ -128,8 +133,45 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
             case R.id.discover_channel_entertainment:
                 categoryId = 28;
                 break;
+            case R.id.discover_channel_tour_travel:
+                categoryId = 92;
+                break;
+            case R.id.discover_channel_agricultrue:
+                categoryId = 58;
+                break;
+            case R.id.discover_channel_finance:
+                categoryId = 73;
+                break;
+            case R.id.discover_channel_real_estate:
+                categoryId = 66;
+                break;
+            case R.id.discover_channel_transport:
+                categoryId = 81;
+                break;
+            case R.id.discover_channel_hotels:
+                categoryId = 100;
+                break;
+            case R.id.discover_channel_health:
+                categoryId = 106;
+                break;
+            case R.id.discover_channel_beauty:
+                categoryId = 113;
+                break;
+            case R.id.discover_channel_services:
+                categoryId = 120;
+                break;
+            case R.id.discover_channel_all:
+                categoryId = 1;
+                break;
+
+
         }
-        KacyberRestClientUsage.getInstance().getCategoryById(categoryId);
+        Intent intent = new Intent();
+        intent.putExtra("categoryId", categoryId);
+        intent.putExtra("categoryName", categoryName);
+        intent.setClass(this.getActivity(), CategoryActivity.class);
+        startActivity(intent);
+//        KacyberRestClientUsage.getInstance().getCategoryById(categoryId);
     }
 
     @Override
@@ -199,6 +241,10 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
                 aQuery.id(R.id.discover_more).background(R.drawable.discoverpage_nav_more_smile_icon);
                 break;
 
+            case R.id.discover_search:
+                Intent searchIntent = new Intent();
+                searchIntent.setClass(this.getActivity(), NormalSearchActivity.class);
+                startActivity(searchIntent);
             default:
 
                 break;
@@ -252,60 +298,58 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
                     case 0: {
                         mViews[0] = inflater.inflate(R.layout.discover_category_header1, null);
                         Log.e(TAG, "position is" + position);
-                        AQuery query2 = new AQuery(mViews[0]);
+                        final AQuery query2 = new AQuery(mViews[0]);
                         query2.id(R.id.discover_channel_super_deals).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "Super Deals");
                             }
                         });
                         query2.id(R.id.discover_channel_food_drink).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "Food & Drink");
                             }
                         });
                         query2.id(R.id.discover_channel_shopping).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "Shopping");
+
                             }
                         });
                         query2.id(R.id.discover_channel_entertainment).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "Leisure");
                             }
                         });
                         query2.id(R.id.discover_channel_tour_travel).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "Tour & Travel");
                             }
                         });
                         query2.id(R.id.discover_channel_agricultrue).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "Agriculture");
                             }
                         });
                         query2.id(R.id.discover_channel_finance).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "Finance & Isurance");
                             }
                         });
                         query2.id(R.id.discover_channel_real_estate).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "Real Estate");
                             }
                         });
 
 
-//                        collapsingToolbarLayout.setTitleEnabled(true);
-//                        query2.id(R.id.rm_welcome_title).text("智能感应").typeface(sanfranciscoTypeface);
-//                        query2.id(R.id.rm_welcome_text).text("精准感应实时步频  记录跑步里程时长").typeface(sanfranciscoTypeface);
                         break;
                     }
                     case 1: {
@@ -315,37 +359,37 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
                         query2.id(R.id.discover_channel_transport).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "Transport");
                             }
                         });
                         query2.id(R.id.discover_channel_hotels).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "Hotels");
                             }
                         });
                         query2.id(R.id.discover_channel_health).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "Health");
                             }
                         });
                         query2.id(R.id.discover_channel_beauty).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "Beauty");
                             }
                         });
                         query2.id(R.id.discover_channel_services).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "OTHERS SERVICES");
                             }
                         });
                         query2.id(R.id.discover_channel_all).clickable(true).clicked(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ChannelClickedByViewId(v.getId());
+                                ChannelClickedByViewId(v.getId(), "All Categories");
                             }
                         });
 //                        collapsingToolbarLayout.setTitleEnabled(false);
@@ -386,19 +430,32 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
         @Override
         public void onItemClick(ActionItem item, int position) {
             switch (position) {
-                case 0:// 发起群聊
-//                    MFGT.gotoCommon(, getString(R.string.menu_groupchat));
+                case 0:// Reviews
+                    Intent reviewsIntent = new Intent();
+                    reviewsIntent.setClass(getActivity(), ReviewsActivity.class);
+                    startActivity(reviewsIntent);
                     break;
-                case 1:// 添加朋友
-//                    MFGT.gotoCommon(MainActivity.this, getString(R.string.menu_addfriend));
-//                    MFGT.startActivity(MainActivity.this, NearByActivity.class);
-                    //TODO
+                case 1:// BookMarks
+                    Intent bookmarksIntent = new Intent();
+                    bookmarksIntent.setClass(getActivity(), BookmarkActivity.class);
+                    startActivity(bookmarksIntent);
                     break;
-                case 2:// 扫一扫
-                    //TODO
-//                    MFGT.gotoZXCode(context);
+                case 2:// Add Business
+
+                    Intent addBusinessIntent = new Intent();
+                    addBusinessIntent.putExtra("title", "Add Business");
+                    addBusinessIntent.putExtra("url", Constants.ADD_BUSINESS);
+                    addBusinessIntent.setClass(getActivity(), WebViewActivity.class);
+                    startActivity(addBusinessIntent);
                     break;
-                case 3:
+                case 3://Help
+
+                    Intent helpIntent = new Intent();
+                    helpIntent.putExtra("title", "Help");
+                    helpIntent.putExtra("url", Constants.HELP_URL);
+                    helpIntent.setClass(getActivity(), WebViewActivity.class);
+                    startActivity(helpIntent);
+
 
                     break;
                 default:

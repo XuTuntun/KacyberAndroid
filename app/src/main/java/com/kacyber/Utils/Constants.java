@@ -52,6 +52,9 @@ public class Constants {
     public static final String GET_MERCHANT_BY_ID = BASE_URL + "/merchant/info/get?merchantId=";
     public static final String ALL_CITIES = BASE_URL + "/region/all/list";
     public static final String OVERSEA_CITIES = BASE_URL + "/region/oversea/list";
+    public static final String CATEGORY_LIST = BASE_URL + "/deal/category/list";
+    public static final String CATEGORY_SEARCH = BASE_URL + "/deal/category/search";
+
 
 
 
@@ -83,6 +86,8 @@ public class Constants {
     public static final String PGC_MUSIC_LIST = BASE_URL + "/api/playlist/5625e85d0307b34b1d881857/";
 
     public static final String TENCENT_APP_URL_OLD = "http://qzs.qq.com/open/yyb/good_new_app/details.html?id=614570823670180785125&appid=42248887&from=timeline&isappinstalled=0&g_f=&srctype=&ticket=";
+    public static final String HELP_URL = "http://www.support.kacyber.com";
+    public static final String ADD_BUSINESS = "http://www.joinkacyber.com";
 
 
     static {

@@ -56,4 +56,7 @@ dependencies {
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
     compile 'com.googlecode.android-query:android-query:0.24.3'
     testCompile 'junit:junit:4.12'
+    compile project(':android-expandpoptab-library')
+
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
