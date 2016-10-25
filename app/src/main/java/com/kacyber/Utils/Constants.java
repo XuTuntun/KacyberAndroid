@@ -42,7 +42,7 @@ public class Constants {
     public static String PLAYLIST_URL = BASE_URL + "/api/playlist/";
     public static String MUSIC_IN_PLAYLIST_URL = BASE_URL + "/api/playlist";
 
-    public static String KACYBER_MAIN_PAGE = "http://www.sina.com.cn";
+    public static String KACYBER_MAIN_PAGE = "http://www.kacyber.com";
     /**
      * The Kacyber URL part
      */
@@ -86,7 +86,7 @@ public class Constants {
     public static final String PGC_MUSIC_LIST = BASE_URL + "/api/playlist/5625e85d0307b34b1d881857/";
 
     public static final String TENCENT_APP_URL_OLD = "http://qzs.qq.com/open/yyb/good_new_app/details.html?id=614570823670180785125&appid=42248887&from=timeline&isappinstalled=0&g_f=&srctype=&ticket=";
-    public static final String HELP_URL = "http://www.support.kacyber.com";
+    public static final String HELP_URL = "http://www.kacyber.com/faq";
     public static final String ADD_BUSINESS = "http://www.joinkacyber.com";
 
 

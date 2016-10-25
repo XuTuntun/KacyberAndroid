@@ -20,10 +20,12 @@ import com.kacyber.event.AllCitiesEvent;
 import com.kacyber.event.CategoryMerchantListEvent;
 import com.kacyber.event.DealMerchantListEvent;
 import com.kacyber.event.MainMerchantListEvent;
+import com.kacyber.event.MerchantDetailEvent;
 import com.kacyber.model.Category;
 import com.kacyber.model.Deal;
 import com.kacyber.model.EventItem;
 import com.kacyber.model.DealMerchant;
+import com.kacyber.model.MerchantDetail;
 import com.kacyber.model.TrendingItem;
 import com.kacyber.network.service.NetStatus;
 
@@ -269,7 +271,7 @@ public class KacyberRestClientUsage {
                         Log.e(TAG, "======================== category list first loop " + i);
                         Category category = new Category();
                         category.initWithJSONObject(jsonArray.getJSONObject(i));
-                        if (category.parentId==0) {
+                        if (category.parentId == 0) {
                             Log.e(TAG, "======================== category list second loop " + i);
                             categoryList.add(category);
                         }
@@ -332,31 +334,20 @@ public class KacyberRestClientUsage {
 
         Log.e(TAG, "GET_MERCHANT_BY_ID ");
 
-        KacyberRestClient.get(Constants.GET_MERCHANT_BY_ID + merchantId, null, new HttpResponseHandler() {
+        KacyberRestClient.getWithoutParams(Constants.GET_MERCHANT_BY_ID + merchantId, new HttpResponseHandler() {
             @Override
             public void onSuccess(byte[] responseBytes) {
                 String responseBody = null;
-                ArrayList<DealMerchant> dealMerchantList = new ArrayList<DealMerchant>();
+                MerchantDetail merchantDetail = new MerchantDetail();
 
                 try {
                     responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
-                    JSONArray jsonArray = jsonObject.getJSONArray("merchants");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        DealMerchant dealMerchant = new DealMerchant();
-                        dealMerchant.initWithJSONObject(jsonArray.getJSONObject(i));
-                        dealMerchantList.add(dealMerchant);
-                    }
-
-//                    Realm realm = Realm.getDefaultInstance();
-//                    realm.createOrUpdateAllFromJson(DealMerchant.class, jsonArray);
-//                    realm.commitTransaction();
-//                    Log.e(TAG, "" + realm.where(DealMerchant.class).findAll().size());
+                    merchantDetail.initWithJSONObject(jsonObject);
                 } catch (Exception e) {
-
                     e.printStackTrace();
                 }
-                EventBus.getDefault().post(new DealMerchantListEvent(dealMerchantList));
+                EventBus.getDefault().post(new MerchantDetailEvent(merchantDetail));
             }
 
             @Override

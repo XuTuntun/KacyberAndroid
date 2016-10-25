@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="left|center_vertical">
+
+    <TextView
+        android:id="@+id/workhour_item_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today"
+        android:textColor="@color/black_4a"/>
+
+    <TextView
+        android:id="@+id/workhour_item_hours"
+        android:layout_marginLeft="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="9Am-5:30Pm"
+        android:textColor="@color/black_4a"/>
+</LinearLayout>

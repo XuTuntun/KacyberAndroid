@@ -53,7 +53,6 @@ public class CategoryActivity extends Activity implements DealMerchantItemClickL
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client;
     private RecyclerView recyclerView;
 
 
@@ -78,10 +77,6 @@ public class CategoryActivity extends Activity implements DealMerchantItemClickL
         aQuery.id(R.id.back_text).clickable(true).clicked(this);
         expandPopTabView = (ExpandPopTabView) findViewById(R.id.category_expandtab);
 
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
