@@ -266,9 +266,13 @@ public class KacyberRestClientUsage {
                     responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONArray jsonArray = new JSONObject(responseBody).getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
+                        Log.e(TAG, "======================== category list first loop " + i);
                         Category category = new Category();
                         category.initWithJSONObject(jsonArray.getJSONObject(i));
+                        if (category.parentId==0) {
+                            Log.e(TAG, "======================== category list second loop " + i);
                             categoryList.add(category);
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

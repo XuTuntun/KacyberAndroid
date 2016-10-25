@@ -161,7 +161,11 @@ public class CategoryActivity extends Activity implements DealMerchantItemClickL
         }
 
 
-        addItem(expandPopTabView, mParentCategoryList, mChildCategoryList, "Brand Showcase", "SUPER DEALS", "All Categories");
+        try {
+            addItem(expandPopTabView, mParentCategoryList, mChildCategoryList, "SUPER DEALS", "Brand Showcase", "All Categories");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         distanceList = new ArrayList<>();
         distanceList.add(new KeyValueBean("1000", "1Km"));
         distanceList.add(new KeyValueBean("3000", "3Km"));

@@ -30,6 +30,9 @@ public class Category implements JSONParceble {
                     category.initWithJSONObject(jsonArray.getJSONObject(i));
                     childrenList.add(category);
                 }
+            } else {
+                childrenList = new ArrayList<>();
+                childrenList.clear();
             }
         } catch (Exception e) {
 
