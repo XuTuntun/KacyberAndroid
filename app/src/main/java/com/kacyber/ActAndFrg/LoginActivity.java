@@ -23,6 +23,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         aQuery = new AQuery(this);
         aQuery.id(R.id.login_response).clickable(true).clicked(this);
+        aQuery.id(R.id.login_facebook_response).clickable(true).clicked(this);
+        aQuery.id(R.id.login_google_response).clickable(true).clicked(this);
         termText = (TextView) findViewById(R.id.terms_and_conditions);
         termText.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         termText.getPaint().setAntiAlias(true);
@@ -36,6 +38,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Intent intent = new Intent();
                 intent.setClass(this, SingUpActivity.class);
                 startActivity(intent);
+
+                break;
+
+            case R.id.login_facebook_response:
+
+                break;
+            case R.id.login_google_response:
 
                 break;
             default:

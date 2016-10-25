@@ -54,7 +54,11 @@ public class DealMerchantListAdapter extends RecyclerView.Adapter<DealMerchantVi
         holder.merchantAddress.setText(dealMerchant.address);
 //        holder.merchantCategory.setText(dealMerchant.);
         holder.viewTimes.setText(""+dealMerchant.viewCount);
-        holder.distance.setText("~"+dealMerchant.distance+"m");
+        if (dealMerchant.distance<1000) {
+            holder.distance.setText("~"+dealMerchant.distance+"m");
+        } else {
+            holder.distance.setText("~"+(int)(dealMerchant.distance/1000)+"Km");
+        }
         switch (dealMerchant.score) {
             case 1:
                 holder.merchantStarLevel.setText("1.0");

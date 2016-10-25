@@ -31,6 +31,9 @@
     <uses-permission android:name="com.allenjuns.wechat2.permission.MIPUSH_RECEIVE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".Application.MainApplication"
         android:allowBackup="true"
