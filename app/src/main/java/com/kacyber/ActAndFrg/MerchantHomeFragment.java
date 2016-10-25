@@ -92,7 +92,7 @@ public class MerchantHomeFragment extends Fragment implements View.OnClickListen
         if (MerchantDetailActivity.currentMerchant != null) {
             aQuery.id(R.id.merchant_title).text(MerchantDetailActivity.currentMerchant.name);
             aQuery.id(R.id.merchant_category).text(MerchantDetailActivity.currentMerchant.category);
-//            aQuery.id(R.id.merchant_best_review).text(MerchantDetailActivity.currentMerchant.description);
+            aQuery.id(R.id.merchant_best_review).text(MerchantDetailActivity.currentMerchant.mission);
             aQuery.id(R.id.merchant_home_address).text(MerchantDetailActivity.currentMerchant.address);
             ArrayList<String> workHoursList = new ArrayList<>();
 

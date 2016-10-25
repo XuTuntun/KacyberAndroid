@@ -21,6 +21,7 @@ public class MerchantDetail implements JSONParceble {
     public double latitude;
     public int gradeMark;
     public String address;
+    public String mission;
     public String description;
     public String startTime;
     public String endTime;
@@ -41,6 +42,7 @@ public class MerchantDetail implements JSONParceble {
             latitude = obj.getDouble("latitude");
             address = obj.getString("address");
             description = obj.getString("description");
+            mission = obj.getString("mission");
             startTime = obj.getString("startTime");
             endTime = obj.getString("endTime");
             if (obj.getJSONArray("images").length()>0) {
