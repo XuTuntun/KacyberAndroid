@@ -54,6 +54,7 @@ public class Constants {
     public static final String OVERSEA_CITIES = BASE_URL + "/region/oversea/list";
     public static final String CATEGORY_LIST = BASE_URL + "/deal/category/list";
     public static final String CATEGORY_SEARCH = BASE_URL + "/deal/category/search";
+    public static final String FACEBOOK_LOGIN_SMS = BASE_URL + "/user/login_facebook";
 
 
 
@@ -88,6 +89,8 @@ public class Constants {
     public static final String TENCENT_APP_URL_OLD = "http://qzs.qq.com/open/yyb/good_new_app/details.html?id=614570823670180785125&appid=42248887&from=timeline&isappinstalled=0&g_f=&srctype=&ticket=";
     public static final String HELP_URL = "http://www.kacyber.com/faq";
     public static final String ADD_BUSINESS = "http://www.joinkacyber.com";
+    public static String OWE_ACCESS_TOKEN;
+    public static final String TERMS = "http://www.kacyber.com/terms/";
 
 
     static {

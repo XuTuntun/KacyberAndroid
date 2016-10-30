@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.androidquery.AQuery;
 import com.kacyber.R;
 import com.kacyber.adapter.DealMerchantItemClickListener;
@@ -17,6 +19,7 @@ import com.kacyber.adapter.DealMerchantListAdapter;
 import com.kacyber.event.DealMerchantListEvent;
 import com.kacyber.model.DealMerchant;
 import com.kacyber.network.http.KacyberRestClientUsage;
+import com.kacyber.network.service.ImageSingleton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,19 +36,24 @@ public class SuperDealActivity extends Activity implements DealMerchantItemClick
     private RecyclerView recyclerView;
     private ArrayList<DealMerchant> dealMerchantList;
     private Context context;
+    private AQuery aQuery;
+    private NetworkImageView networkImageView;
+    private ImageLoader imageLoader;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         setContentView(R.layout.fragment_super_deal);
-        AQuery aQuery = new AQuery(this);
+        aQuery = new AQuery(this);
         aQuery.id(R.id.back_text).clickable(true).clicked(this);
         aQuery.id(R.id.normal_chats_back).clickable(true).clicked(this);
         recyclerView = (RecyclerView) findViewById(R.id.super_deal_merchant_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        networkImageView = (NetworkImageView) findViewById(R.id.super_deal_header_image);
+        imageLoader = ImageSingleton.getInstance(this).getImageLoader();
         context = this;
-//        aQuery.id()
     }
 
     @Override
@@ -67,6 +75,9 @@ public class SuperDealActivity extends Activity implements DealMerchantItemClick
         DealMerchantListAdapter dealMerchantListAdapter = new DealMerchantListAdapter(this, R.layout.merchant_item_layout, dealMerchantList);
         dealMerchantListAdapter.setOnItemClickListener(this);
         recyclerView.setAdapter(dealMerchantListAdapter);
+        if (!event.superDealImage.isEmpty()) {
+            networkImageView.setImageUrl(event.superDealImage, imageLoader);
+        }
 
 
     }

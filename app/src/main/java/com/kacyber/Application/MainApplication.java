@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import com.facebook.accountkit.AccountKit;
+
 import io.realm.Realm;
 
 //import com.melink.bqmmsdk.sdk.BQMM;
@@ -17,6 +19,9 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Realm.init(this);
+
+        AccountKit.initialize(getApplicationContext());
+
 
 //        try {
 //            Bundle bundle = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData;

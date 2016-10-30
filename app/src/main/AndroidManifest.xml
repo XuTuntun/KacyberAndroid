@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.kacyber">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -30,7 +31,6 @@
     <uses-permission android:name="com.allenjuns.wechat2.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.allenjuns.wechat2.permission.MIPUSH_RECEIVE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
@@ -85,7 +85,24 @@
             android:name=".ActAndFrg.NormalSearchActivity"
             android:windowSoftInputMode="stateAlwaysVisible" />
         <activity android:name=".ActAndFrg.ReviewsActivity" />
-        <activity android:name=".ActAndFrg.BookmarkActivity"></activity>
+        <activity android:name=".ActAndFrg.BookmarkActivity" />
+        <activity
+            android:name="com.facebook.accountkit.ui.AccountKitActivity"
+            android:theme="@style/LoginThemeMine"
+            tools:replace="android:theme" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+        <meta-data
+            android:name="com.facebook.accountkit.ClientToken"
+            android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
+        <meta-data
+            android:name="com.facebook.accountkit.ApplicationName"
+            android:value="@string/APP_NAME" />
+
+        <activity android:name=".ActAndFrg.AddBusinessActivity"></activity>
+        
     </application>
 
 </manifest>

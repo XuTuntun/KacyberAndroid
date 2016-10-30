@@ -12,12 +12,13 @@
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/merchant_item_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="13dp"
+        android:scaleType="centerCrop"
         android:background="@drawable/discoverpage_business_placeholder" />
 
     <LinearLayout

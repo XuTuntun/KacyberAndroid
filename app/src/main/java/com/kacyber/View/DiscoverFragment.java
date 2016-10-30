@@ -16,8 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.androidquery.AQuery;
 
+import com.kacyber.ActAndFrg.AddBusinessActivity;
 import com.kacyber.ActAndFrg.BookmarkActivity;
 import com.kacyber.ActAndFrg.CategoryActivity;
 import com.kacyber.ActAndFrg.DiscoverCitiesActivity;
@@ -36,8 +39,11 @@ import com.kacyber.dialog.ActionItem;
 import com.kacyber.dialog.TitlePopup;
 import com.kacyber.event.MainMerchantListEvent;
 import com.kacyber.model.DealMerchant;
+import com.kacyber.model.EventItem;
+import com.kacyber.model.TrendingItem;
 import com.kacyber.network.http.KacyberRestClient;
 import com.kacyber.network.http.KacyberRestClientUsage;
+import com.kacyber.network.service.ImageSingleton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -57,12 +63,22 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
     private RecyclerView recyclerView;
     private AQuery aQuery;
     private ArrayList<DealMerchant> merchantArrayList;
+    private ArrayList<EventItem> eventItems;
+    private ArrayList<TrendingItem> trendingItems;
     private TitlePopup titlePopup;
+    private NetworkImageView trendingImage1;
+    private NetworkImageView trendingImage2;
+    private NetworkImageView eventImage1;
+    private NetworkImageView eventImage2;
+    private ImageLoader imageLoader;
+    private static String trendingOneUrl;
+    private static String trendingTwoUrl;
+    private static String eventOneUrl;
+    private static String eventTwoUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        KacyberRestClientUsage.getInstance().getDiscoverMainPage();
         View view = inflater.inflate(R.layout.discover_layout, null);
         aQuery = new AQuery(view);
 
@@ -90,11 +106,20 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
         aQuery.id(R.id.events_2).clickable(true).clicked(this);
         aQuery.id(R.id.discover_more).clickable(true).clicked(this);
         aQuery.id(R.id.discover_search).clickable(true).clicked(this);
+        eventImage1 = (NetworkImageView) view.findViewById(R.id.events_1);
+        eventImage2 = (NetworkImageView) view.findViewById(R.id.events_2);
+        trendingImage1 = (NetworkImageView) view.findViewById(R.id.trending_1_image);
+        trendingImage2 = (NetworkImageView) view.findViewById(R.id.trending_2_image);
         initPopWindow();
-
+        imageLoader = ImageSingleton.getInstance(this.getActivity()).getImageLoader();
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        KacyberRestClientUsage.getInstance().getDiscoverMainPage();
+    }
 
     private void initPopWindow() {
         titlePopup = new TitlePopup(this.getActivity(), ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -198,7 +223,13 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
                 Intent trendingIntent = new Intent();
 
                 trendingIntent.putExtra("title", "Trending");
-                trendingIntent.putExtra("url", Constants.KACYBER_MAIN_PAGE);
+                if (trendingOneUrl!=null) {
+                    trendingIntent.putExtra("url", trendingOneUrl);
+
+                } else {
+                    trendingIntent.putExtra("url", Constants.KACYBER_MAIN_PAGE);
+                }
+
                 trendingIntent.setClass(this.getActivity(), WebViewActivity.class);
 
                 startActivity(trendingIntent);
@@ -210,7 +241,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
                 Intent trendingIntent2 = new Intent();
                 trendingIntent2.setClass(this.getActivity(), WebViewActivity.class);
                 trendingIntent2.putExtra("title", "Trending");
-                trendingIntent2.putExtra("url", Constants.KACYBER_MAIN_PAGE);
+                if (trendingTwoUrl!=null) {
+                    trendingIntent2.putExtra("url", trendingTwoUrl);
+                } else {
+                    trendingIntent2.putExtra("url", Constants.KACYBER_MAIN_PAGE);
+                }
                 startActivity(trendingIntent2);
 
                 break;
@@ -220,7 +255,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
                 Intent eventIntent = new Intent();
                 eventIntent.setClass(this.getActivity(), WebViewActivity.class);
                 eventIntent.putExtra("title", "Event");
-                eventIntent.putExtra("url", Constants.KACYBER_MAIN_PAGE);
+                if (eventOneUrl!=null) {
+                    eventIntent.putExtra("url", eventOneUrl);
+                } else {
+                    eventIntent.putExtra("url", Constants.KACYBER_MAIN_PAGE);
+                }
                 startActivity(eventIntent);
 
                 break;
@@ -230,8 +269,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
                 Intent eventIntent2 = new Intent();
                 eventIntent2.setClass(this.getActivity(), WebViewActivity.class);
                 eventIntent2.putExtra("title", "Event");
-                eventIntent2.putExtra("url", Constants.KACYBER_MAIN_PAGE);
-                startActivity(eventIntent2);
+                if (eventTwoUrl!=null) {
+                    eventIntent2.putExtra("url", eventTwoUrl);
+                } else {
+                    eventIntent2.putExtra("url", Constants.KACYBER_MAIN_PAGE);
+                }                startActivity(eventIntent2);
 
                 break;
 
@@ -257,9 +299,33 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
     @Subscribe
     public void onMainMerchantListEvent(MainMerchantListEvent event) {
         merchantArrayList = event.merchantList;
+        eventItems = event.eventItems;
+        trendingItems = event.trendingItems;
+
+
         DealMerchantListAdapter dealMerchantListAdapter = new DealMerchantListAdapter(this.getContext(), R.layout.merchant_item_layout, merchantArrayList);
         dealMerchantListAdapter.setOnItemClickListener(this);
         recyclerView.setAdapter(dealMerchantListAdapter);
+        try {
+            trendingImage1.setImageUrl(trendingItems.get(0).picUrl, imageLoader);
+            trendingImage2.setImageUrl(trendingItems.get(1).picUrl, imageLoader);
+            eventImage1.setImageUrl(eventItems.get(0).picUrl, imageLoader);
+            eventImage2.setImageUrl(eventItems.get(1).picUrl, imageLoader);
+            aQuery.id(R.id.trending_1_title).text(trendingItems.get(0).title);
+            aQuery.id(R.id.trending_1_description).text(trendingItems.get(0).subTitle);
+            aQuery.id(R.id.trending_2_title).text(trendingItems.get(1).title);
+            aQuery.id(R.id.trending_2_description).text(trendingItems.get(1).subTitle);
+            trendingOneUrl = trendingItems.get(0).link;
+            trendingTwoUrl = trendingItems.get(1).link;
+            eventOneUrl = eventItems.get(0).link;
+            eventTwoUrl = eventItems.get(1).link;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
     }
 
     @Override
@@ -443,10 +509,9 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
                 case 2:// Add Business
 
                     Intent addBusinessIntent = new Intent();
-                    addBusinessIntent.putExtra("title", "Add Business");
-                    addBusinessIntent.putExtra("url", Constants.ADD_BUSINESS);
-                    addBusinessIntent.setClass(getActivity(), WebViewActivity.class);
+                    addBusinessIntent.setClass(getActivity(), AddBusinessActivity.class);
                     startActivity(addBusinessIntent);
+
                     break;
                 case 3://Help
 

@@ -52,11 +52,12 @@
 
     </RelativeLayout>
 
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/super_deal_header_image"
         android:layout_height="125dp"
         android:layout_width="match_parent"
         android:layout_marginBottom="6dp"
+        android:scaleType="centerCrop"
         android:layout_below="@id/super_deal_header"
         android:background="@drawable/discoverpage_events_pic1"/>
 

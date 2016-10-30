@@ -82,4 +82,18 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="LoginThemeMine" parent="Theme.AccountKit">
+        <!--<item name="com_accountkit_primary_color">#f4bf56</item>-->
+        <!--<item name="com_accountkit_primary_text_color">@android:color/white</item>-->
+        <!--<item name="com_accountkit_secondary_text_color">#44566b</item>-->
+        <item name="com_accountkit_status_bar_color">@color/colorPrimary</item>
+        <item name="com_accountkit_primary_color">@color/colorPrimary</item>
+        <item name="com_accountkit_primary_text_color">@color/black_4a</item>
+        <item name="com_accountkit_background">@drawable/loginpage_bg_blurry</item>
+        <item name="com_accountkit_background_color">#00000000</item>
+        <item name="com_accountkit_button_background_color">@color/colorPrimary</item>
+        <!--<item name="com_accountkit_input_accent_color">?attr/com_accountkit_primary_color</item>-->
+        <!--<item name="com_accountkit_input_border_color">?attr/com_accountkit_primary_color</item>-->
+    </style>
 </resources>

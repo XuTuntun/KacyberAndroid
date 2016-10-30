@@ -9,8 +9,8 @@ android {
         applicationId "com.kacyber"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 2
-        versionName "1.0"
+        versionCode 3
+        versionName "1.1"
     }
     buildTypes {
         release {
@@ -41,7 +41,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/zxing-1.6.jar')
 
-
+    compile 'com.facebook.android:account-kit-sdk:4.+'
+    compile 'com.google.firebase:firebase-auth:9.6.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.android.volley:volley:1.0.0'
@@ -57,6 +58,4 @@ dependencies {
     compile 'com.googlecode.android-query:android-query:0.24.3'
     testCompile 'junit:junit:4.12'
     compile project(':android-expandpoptab-library')
-
-    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }

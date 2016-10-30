@@ -67,6 +67,7 @@ public class DiscoverCitiesActivity extends AppCompatActivity implements View.On
     @Override
     protected void onResume() {
         super.onResume();
+        allOversea = true;
         KacyberRestClientUsage.getInstance().getAllCities();
 
     }

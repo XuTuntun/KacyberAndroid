@@ -24,6 +24,9 @@ public class KacyberRestClient {
     public static void setAppkeyHeader() {
 
         client.addHeader("appkey", Constants.APP_KEY);
+        if (Constants.OWE_ACCESS_TOKEN != null) {
+            client.addHeader("Authorization", Constants.OWE_ACCESS_TOKEN);
+        }
     }
 
     /**

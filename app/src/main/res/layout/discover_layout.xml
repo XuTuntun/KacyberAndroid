@@ -291,11 +291,12 @@
                                 android:textSize="8dp" />
                         </LinearLayout>
 
-                        <ImageView
+                        <com.android.volley.toolbox.NetworkImageView
                             android:id="@+id/trending_1_image"
                             android:layout_height="80dp"
                             android:layout_width="match_parent"
                             android:background="@drawable/discoverpage_trending_pic1"
+                            android:scaleType="centerCrop"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true" />
@@ -311,11 +312,12 @@
                         android:layout_weight="1"
                         android:background="@color/colorPrimaryDark">
 
-                        <ImageView
+                        <com.android.volley.toolbox.NetworkImageView
                             android:id="@+id/trending_2_image"
                             android:layout_height="80dp"
                             android:layout_width="match_parent"
                             android:layout_alignParentTop="true"
+                            android:scaleType="centerCrop"
                             android:background="@drawable/discoverpage_trending_pic2"/>
 
                         <LinearLayout
@@ -374,7 +376,7 @@
                     android:layout_below="@id/events_text"
                     android:background="@color/split_e5" />
 
-                <ImageView
+                <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/events_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -382,10 +384,11 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="11dp"
+                    android:scaleType="centerCrop"
                     android:background="@drawable/discoverpage_events_pic1"
                     android:minHeight="120dp" />
 
-                <ImageView
+                <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/events_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -393,6 +396,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="11dp"
+                    android:scaleType="centerCrop"
                     android:background="@drawable/discoverpage_events_pic2"
                     android:minHeight="120dp" />
 

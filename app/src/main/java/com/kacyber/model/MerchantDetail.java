@@ -38,6 +38,9 @@ public class MerchantDetail implements JSONParceble {
             name = obj.getString("name");
             phone = obj.getString("phone");
             website = obj.getString("website");
+            if (!website.contains("http")) {
+                website = "http://" + website;
+            }
             longitude = obj.getDouble("longitude");
             latitude = obj.getDouble("latitude");
             address = obj.getString("address");

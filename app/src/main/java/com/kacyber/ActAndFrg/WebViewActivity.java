@@ -32,6 +32,7 @@ public class WebViewActivity extends Activity {
         Log.e(TAG, "Bundle is " + savedInstanceState);
         titleText = getIntent().getStringExtra("title");
         urlString = getIntent().getStringExtra("url");
+        Log.e(TAG, "WEB VIEW ACTIVITY URL is" + urlString);
         setContentView(R.layout.activity_web_view);
 //        webView = new WebView(context);
         webView = (WebView) findViewById(R.id.webview_content);

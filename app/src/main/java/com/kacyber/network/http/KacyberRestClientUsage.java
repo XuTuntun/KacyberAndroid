@@ -19,12 +19,14 @@ import com.kacyber.event.AllCategoryEvent;
 import com.kacyber.event.AllCitiesEvent;
 import com.kacyber.event.CategoryMerchantListEvent;
 import com.kacyber.event.DealMerchantListEvent;
+import com.kacyber.event.LoginSuccessEvent;
 import com.kacyber.event.MainMerchantListEvent;
 import com.kacyber.event.MerchantDetailEvent;
 import com.kacyber.model.Category;
 import com.kacyber.model.Deal;
 import com.kacyber.model.EventItem;
 import com.kacyber.model.DealMerchant;
+import com.kacyber.model.LoginSuccessModel;
 import com.kacyber.model.MerchantDetail;
 import com.kacyber.model.TrendingItem;
 import com.kacyber.network.service.NetStatus;
@@ -81,10 +83,24 @@ public class KacyberRestClientUsage {
 
                 String responseBody = null;
                 ArrayList<DealMerchant> dealMerchants = new ArrayList<DealMerchant>();
+                ArrayList<TrendingItem> trendingItems = new ArrayList<TrendingItem>();
+                ArrayList<EventItem> eventItems = new ArrayList<EventItem>();
                 try {
                     responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONObject jsonObject = new JSONObject(responseBody);
                     JSONObject jsonData = jsonObject.getJSONObject("data");
+                    JSONArray trendingsJSONArray = jsonData.getJSONArray("trendingItems");
+                    for (int i=0; i < 2; i++) {
+                        TrendingItem trendingItem = new TrendingItem();
+                        trendingItem.initWithJSONObject(trendingsJSONArray.getJSONObject(i));
+                        trendingItems.add(trendingItem);
+                    }
+                    JSONArray eventitemsJSONArray = jsonData.getJSONArray("eventItems");
+                    for (int i=0; i < 2; i++) {
+                        EventItem eventItem = new EventItem();
+                        eventItem.initWithJSONObject(eventitemsJSONArray.getJSONObject(i));
+                        eventItems.add(eventItem);
+                    }
                     JSONArray merchantsJSON = jsonData.getJSONArray("recommendItems");
                     for (int i = 0; i < merchantsJSON.length(); i++) {
                         DealMerchant dealMerchant = new DealMerchant();
@@ -94,7 +110,7 @@ public class KacyberRestClientUsage {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                EventBus.getDefault().post(new MainMerchantListEvent(dealMerchants));
+                EventBus.getDefault().post(new MainMerchantListEvent(dealMerchants, trendingItems, eventItems));
             }
 
             @Override
@@ -111,8 +127,8 @@ public class KacyberRestClientUsage {
         Log.e(TAG, "get Discover Main Page");
 
         AndroidRequestParams params = new AndroidRequestParams();
-        params.put("longitude", longitude);
-        params.put("latitude", latitude);
+        params.put("lng", longitude);
+        params.put("lat", latitude);
         KacyberRestClient.get(Constants.DISCOVER_MAIN, params, new HttpResponseHandler() {
 
             @Override
@@ -120,6 +136,8 @@ public class KacyberRestClientUsage {
 
                 String responseBody = null;
                 ArrayList<DealMerchant> dealMerchants = new ArrayList<DealMerchant>();
+                ArrayList<TrendingItem> trendingItems = new ArrayList<TrendingItem>();
+                ArrayList<EventItem> eventItems = new ArrayList<EventItem>();
                 try {
                     responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONObject jsonObject = new JSONObject(responseBody);
@@ -130,10 +148,22 @@ public class KacyberRestClientUsage {
                         dealMerchant.initWithJSONObject(merchantsJSON.getJSONObject(i));
                         dealMerchants.add(dealMerchant);
                     }
+                    JSONArray trendingsJSONArray = jsonData.getJSONArray("trendingItems");
+                    for (int i=0; i < 2; i++) {
+                        TrendingItem trendingItem = new TrendingItem();
+                        trendingItem.initWithJSONObject(trendingsJSONArray.getJSONObject(i));
+                        trendingItems.add(trendingItem);
+                    }
+                    JSONArray eventitemsJSONArray = jsonData.getJSONArray("eventItems");
+                    for (int i=0; i < 2; i++) {
+                        EventItem eventItem = new EventItem();
+                        eventItem.initWithJSONObject(eventitemsJSONArray.getJSONObject(i));
+                        eventItems.add(eventItem);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                EventBus.getDefault().post(new MainMerchantListEvent(dealMerchants));
+                EventBus.getDefault().post(new MainMerchantListEvent(dealMerchants, trendingItems, eventItems));
             }
 
             @Override
@@ -143,6 +173,50 @@ public class KacyberRestClientUsage {
         });
     }
 
+    public void facebookLogin(String accessToken) {
+        setAppkeyHeader();
+
+        AndroidRequestParams params = new AndroidRequestParams();
+        params.put("accessToken", accessToken);
+        KacyberRestClient.post(Constants.FACEBOOK_LOGIN_SMS, params, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody = null;
+
+
+                Log.e(TAG, "facebook Login result is " +responseBody);
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    Log.e(TAG, "" + responseBody);
+                    String resultCode = new JSONObject(responseBody).getString("msg");
+                    if (resultCode.equals("SUCCESS")) {
+
+                        LoginSuccessModel loginSuccessModel = new LoginSuccessModel();
+                        JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
+                        loginSuccessModel.initWithJSONObject(jsonObject);
+
+                        EventBus.getDefault().post(new LoginSuccessEvent(loginSuccessModel));
+
+                    } else {
+                        LoginSuccessModel loginSuccessModel = new LoginSuccessModel();
+                        EventBus.getDefault().post(new LoginSuccessEvent(loginSuccessModel));
+                    }
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
 
     public void getCategory(int categoryId, String lat, String lng, String sortBy, String filters) {
         setAppkeyHeader();
@@ -300,10 +374,13 @@ public class KacyberRestClientUsage {
             public void onSuccess(byte[] responseBytes) {
                 String responseBody = null;
                 ArrayList<DealMerchant> dealMerchantList = new ArrayList<DealMerchant>();
+                String superDealImage = new String();
+
 
                 try {
                     responseBody = new String(responseBytes, Constants.CHARSET);
                     JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
+                    superDealImage = jsonObject.getString("imageURL");
                     JSONArray jsonArray = jsonObject.getJSONArray("merchants");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         DealMerchant dealMerchant = new DealMerchant();
@@ -319,7 +396,7 @@ public class KacyberRestClientUsage {
 
                     e.printStackTrace();
                 }
-                EventBus.getDefault().post(new DealMerchantListEvent(dealMerchantList));
+                EventBus.getDefault().post(new DealMerchantListEvent(superDealImage, dealMerchantList));
             }
 
             @Override
@@ -357,54 +434,54 @@ public class KacyberRestClientUsage {
         });
     }
 
-    public void getFavMusic(String token) {
-        setTokenHeader(token);
-        Log.e(TAG, "getFavMusic token is " + token);
-        KacyberRestClient.get(Constants.USER_FAV_MUSIC, null, new HttpResponseHandler() {
-            @Override
-            public void onSuccess(byte[] responseBytes) {
-                String responseBody = null;
-                try {
-                    responseBody = new String(responseBytes, Constants.CHARSET);
-                    JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
-
-                    Log.e(TAG, "response array is " + jsonObject);
-
-                    JSONArray hotDeals = jsonObject.getJSONArray("hotDeals");
-                    Realm realm = Realm.getDefaultInstance();
-                    realm.beginTransaction();
-                    realm.createOrUpdateAllFromJson(Deal.class, hotDeals);
-                    realm.commitTransaction();
-
-                    JSONArray trendingItems = jsonObject.getJSONArray("trendingItems");
-                    realm.beginTransaction();
-                    realm.createOrUpdateAllFromJson(TrendingItem.class, trendingItems);
-
-                    JSONArray recommendItems = jsonObject.getJSONArray("recommendItems");
-                    realm.beginTransaction();
-                    realm.createOrUpdateAllFromJson(EventItem.class, recommendItems);
-                    realm.getSchema();
-//                    if (jsonArray!=null) {
-//                        ArrayList<Music> musicArrayList = new ArrayList<Music>();
-//                        for (int i=0; i < jsonArray.length(); i++) {
-//                            Music music = new Music();
-//                            music.initWithJSONObject(jsonArray.getJSONObject(i));
-//                            musicArrayList.add(music);
-//                        }
-//                        Log.e(TAG, "FavMusicResult posted");
-//                        EventBus.getDefault().post(new FavMusicListEvent(musicArrayList));
-//                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int errorCode) {
-
-            }
-        });
-    }
+//    public void getFavMusic(String token) {
+//        setTokenHeader(token);
+//        Log.e(TAG, "getFavMusic token is " + token);
+//        KacyberRestClient.get(Constants.USER_FAV_MUSIC, null, new HttpResponseHandler() {
+//            @Override
+//            public void onSuccess(byte[] responseBytes) {
+//                String responseBody = null;
+//                try {
+//                    responseBody = new String(responseBytes, Constants.CHARSET);
+//                    JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("data");
+//
+//                    Log.e(TAG, "response array is " + jsonObject);
+//
+//                    JSONArray hotDeals = jsonObject.getJSONArray("hotDeals");
+//                    Realm realm = Realm.getDefaultInstance();
+//                    realm.beginTransaction();
+//                    realm.createOrUpdateAllFromJson(Deal.class, hotDeals);
+//                    realm.commitTransaction();
+//
+//                    JSONArray trendingItems = jsonObject.getJSONArray("trendingItems");
+//                    realm.beginTransaction();
+//                    realm.createOrUpdateAllFromJson(TrendingItem.class, trendingItems);
+//
+//                    JSONArray recommendItems = jsonObject.getJSONArray("recommendItems");
+//                    realm.beginTransaction();
+//                    realm.createOrUpdateAllFromJson(EventItem.class, recommendItems);
+//                    realm.getSchema();
+////                    if (jsonArray!=null) {
+////                        ArrayList<Music> musicArrayList = new ArrayList<Music>();
+////                        for (int i=0; i < jsonArray.length(); i++) {
+////                            Music music = new Music();
+////                            music.initWithJSONObject(jsonArray.getJSONObject(i));
+////                            musicArrayList.add(music);
+////                        }
+////                        Log.e(TAG, "FavMusicResult posted");
+////                        EventBus.getDefault().post(new FavMusicListEvent(musicArrayList));
+////                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(int errorCode) {
+//
+//            }
+//        });
+//    }
 
     public void setLikeMusic(String token, String musicID) {
         setTokenHeader(token);
@@ -890,6 +967,7 @@ public class KacyberRestClientUsage {
 
         return userMap;
     }
+
 
 
     private enum TypeInfo {

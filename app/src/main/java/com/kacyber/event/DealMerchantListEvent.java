@@ -9,9 +9,11 @@ import java.util.ArrayList;
  */
 
 public class DealMerchantListEvent {
+    public String superDealImage;
     public ArrayList<DealMerchant> merchantList;
 
-    public DealMerchantListEvent(ArrayList<DealMerchant> merchantListInput) {
+    public DealMerchantListEvent(String superDealImageInput, ArrayList<DealMerchant> merchantListInput) {
+        superDealImage = superDealImageInput;
         merchantList = merchantListInput;
     }
 }
