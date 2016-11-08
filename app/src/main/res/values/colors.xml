@@ -22,5 +22,8 @@
     <color name="transparent">#00000000</color>
     <color name="unsel_split">#e5e5e5</color>
     <color name="orange">#ff9200</color>
+    <color name="text_hint">#bdbec2</color>
+    <color name="grey_time_bg">#c0c4cc</color>
+    <color name="message_color">#2b2b2b</color>
 
 </resources>

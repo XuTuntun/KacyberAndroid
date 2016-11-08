@@ -10,10 +10,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.androidquery.AQuery;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.kacyber.R;
 import com.kacyber.adapter.DealMerchantItemClickListener;
 import com.kacyber.adapter.DealMerchantListAdapter;

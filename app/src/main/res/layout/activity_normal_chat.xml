@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kacyber.ActAndFrg.NormalChatActivity">
+    android:orientation="vertical"
+    android:background="@color/activity_bg">
 
 
     <RelativeLayout
         android:id="@+id/chats_header"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
+        android:layout_weight="0"
         android:background="@color/colorPrimaryDark">
 
         <ImageView
@@ -19,9 +21,10 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="18dp"
-            android:background="@drawable/chatspage_nav_return_icon"/>
+            android:background="@drawable/chatspage_nav_return_icon" />
 
         <TextView
+            android:id="@+id/chats_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -41,6 +44,7 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/chat_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -50,23 +54,29 @@
 
     </RelativeLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/chat_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/activity_bg" />
 
 
     <RelativeLayout
         android:id="@+id/message_tool_box"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#f4f4f6"
-        android:layout_alignParentBottom="true">
+        android:layout_weight="0"
+        android:background="#f4f4f6">
 
         <ImageView
             android:id="@+id/chat_voice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/chatspage_voice_iconx"/>
+            android:background="@drawable/chatspage_voice_iconx" />
 
         <ImageView
             android:id="@+id/chat_add_icon"
@@ -75,43 +85,57 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="11dp"
-            android:background="@drawable/chatspage_secret_more_icon"/>
+            android:background="@drawable/chatspage_secret_more_icon" />
 
-        <ImageView
-            android:id="@+id/chat_moji_icon"
+        <com.melink.bqmmsdk.widget.BQMMSendButton
+            android:id="@+id/chatbox_send"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/blue_btn_bg"
+            android:text="发送"
+            android:textColor="#ffffffff"
+            android:textSize="15sp" />
+
+        <CheckBox
+            android:id="@+id/chatbox_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/chat_add_icon"
             android:layout_centerVertical="true"
             android:layout_marginRight="12dp"
-            android:background="@drawable/chatspage_secret_voice_icon"/>
+            android:layout_toLeftOf="@id/chat_add_icon"
+            android:background="@drawable/chatspage_secret_voice_icon"
+            android:button="@null"/>
+
+        <com.melink.bqmmsdk.widget.BQMMEditView
+            android:id="@+id/chatbox_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/chatbox_open"
+            android:layout_toRightOf="@+id/chat_voice"
+            android:gravity="center_vertical|left"
+            android:layout_centerVertical="true"
+            android:background="#f6f5f5"
+            android:inputType="textMultiLine"
+            android:maxHeight="120dp"
+            android:minHeight="35dp"
+            android:singleLine="false"
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
 
 
-    <RelativeLayout
-        android:id="@+id/message_container"
+    <com.melink.bqmmsdk.ui.keyboard.BQMMKeyboard
+        android:id="@+id/chat_msg_input_box"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/message_tool_box"
-        android:layout_below="@id/chats_header"
-        android:background="@color/white"/>
+        android:layout_weight="0"
+        android:layout_height="250dp"
+        android:visibility="gone" />
 
-    <!--<Keyboard-->
-        <!--android:keyWidth="%10p"-->
-        <!--android:keyHeight="50px"-->
-        <!--android:horizontalGap="2px"-->
-        <!--android:verticalGap="2px" >-->
-        <!--<Row android:keyWidth="32px" >-->
-            <!--<Key android:keyLabel="A" />-->
-            <!--...-->
-        <!--</Row>-->
-        <!--...-->
-    <!--</Keyboard>-->
 
-    <!--<android.inputmethodservice.KeyboardView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"/>-->
-</RelativeLayout>
+
+</LinearLayout>

@@ -3,10 +3,18 @@ package com.kacyber.network.http;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
 
 import com.kacyber.Utils.Constants;
 
+import org.apache.http.HttpEntity;
+import org.json.JSONObject;
+
+import javax.crypto.KeyAgreement;
+
 public class KacyberRestClient {
+
+    private static String TAG = KacyberRestClient.class.getName();
 
     private static AndroidRestClient client = new AndroidRestClient();
 
@@ -16,6 +24,7 @@ public class KacyberRestClient {
     public static void setTokenHeader(String token) {
 
         client.addHeader("token", token);
+        Log.e(TAG, "tooken is " + token);
     }
 
     /**
@@ -26,6 +35,9 @@ public class KacyberRestClient {
         client.addHeader("appkey", Constants.APP_KEY);
         if (Constants.OWE_ACCESS_TOKEN != null) {
             client.addHeader("Authorization", Constants.OWE_ACCESS_TOKEN);
+            Log.e(TAG, "tooken is " + Constants.OWE_ACCESS_TOKEN);
+        } else {
+            Log.e(TAG, "OWE_ACCESS_TOKEN ERROR");
         }
     }
 
@@ -57,6 +69,10 @@ public class KacyberRestClient {
 
     public static void postGZip(String url, AndroidRequestParams params, HttpResponseHandler responseHandler) {
         client.sendGZipRequest(true, url, params, responseHandler);
+    }
+
+    public static void postBody(Context context, String url, HttpEntity entity, String contentType, HttpResponseHandler responseHandler) {
+        client.post(context, url, entity, contentType, responseHandler);
     }
 
     public static void cancel() {

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_group_create"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg"
+    tools:context="com.kacyber.ActAndFrg.GroupCreateActivity">
+
+    <RelativeLayout
+        android:id="@+id/create_group_header"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/create_group_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
+            android:text="Cancel"
+            android:textColor="@color/white"
+            android:textSize="17dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Friends"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/group_create_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"
+            android:text="Done"
+            android:textSize="17dp"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/group_create_search"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:layout_below="@id/create_group_header">
+
+        <ImageView
+            android:id="@+id/create_group_search"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/chatspage_search_icon"
+            android:layout_centerVertical="true"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/group_create_container"
+            android:layout_width="wrap_content"
+            android:layout_height="51dp"
+            android:layout_toRightOf="@id/create_group_search" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:textSize="19dp"
+            android:textColor="@color/text_white_f5"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/group_create_container"/>
+
+
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/group_select_one"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/group_create_search"
+        android:layout_marginTop="1dp"
+        android:text="Select one or more contacts"
+        android:textSize="15dp"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black_4a"
+        android:background="@color/white"/>
+
+    <TextView
+        android:id="@+id/join_secret_group"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/group_select_one"
+        android:layout_marginTop="1dp"
+        android:text="Join Secret Group Chat"
+        android:textSize="15dp"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black_4a"
+        android:background="@color/white"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/group_contact_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/join_secret_group"
+        android:layout_marginTop="1dp"/>
+
+
+
+</RelativeLayout>

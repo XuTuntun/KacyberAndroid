@@ -22,6 +22,7 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/contact_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -44,6 +45,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/contact_search"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@color/activity_bg">
@@ -91,6 +93,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/moments_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/white">
@@ -117,6 +120,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/new_friends"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="6dp"
@@ -137,7 +141,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@id/newfriend_icon"
-                    android:text="Moment"
+                    android:text="New Friends"
                     android:textColor="@color/black_4a"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -150,9 +154,11 @@
                 android:gravity="center"
                 android:background="@color/white"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/secret_chat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -181,6 +187,7 @@
                     android:background="#dedede"/>
 
                 <LinearLayout
+                    android:id="@+id/group_chat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -210,6 +217,7 @@
                     android:background="#dedede"/>
 
                 <LinearLayout
+                    android:id="@+id/people_nearby"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -232,8 +240,9 @@
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/contacts_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

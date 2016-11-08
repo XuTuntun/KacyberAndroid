@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "318505618391",
+    "project_id": "kacyber-app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318505618391:android:2a32155edb76bf61",
+        "android_client_info": {
+          "package_name": "com.kacyber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318505618391-j5294djjpoqfd7411fnf5a5hui3k5sv0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kacyber",
+            "certificate_hash": "A08AED4DD39599CBD85AE3CD6EF6683F42893003"
+          }
+        },
+        {
+          "client_id": "318505618391-bkhl7qhatbau57msfaifdslt6226ldn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHNGxadPumn2TvV-ARrs7Z2XfRabrdvpA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

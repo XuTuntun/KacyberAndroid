@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    android:layout_marginBottom="1dp"
     android:background="#ffffff"
     tools:context="com.kacyber.View.NewChatsFragment">
 
@@ -26,8 +27,22 @@
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
             android:layout_alignParentTop="true"
             android:background="@drawable/chat_noti" />
+
+        <TextView
+            android:id="@+id/chat_noti_number"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/chat_noti_more"
+            android:text="3"
+            android:textSize="9dp"
+            android:textColor="@color/white"
+            android:gravity="center"/>
 
 
         <ImageView
@@ -43,6 +58,7 @@
 
 
     <TextView
+        android:id="@+id/chat_time_last_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

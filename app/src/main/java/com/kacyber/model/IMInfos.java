@@ -1,6 +1,7 @@
 package com.kacyber.model;
 
 import org.apache.http.ExceptionLogger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -14,12 +15,14 @@ public class IMInfos implements JSONParceble {
     @Override
     public boolean initWithJSONObject(JSONObject obj) {
         try {
-            host = obj.getString("host");
-            port = obj.getInt("port");
-            queueName = obj.getString("queueName");
+            JSONArray jsonArray = obj.getJSONArray("servers");
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            host = jsonObject.getString("host");
+            port = jsonObject.getInt("port");
+            queueName = jsonObject.getString("queueName");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return true;
     }
 }

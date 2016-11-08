@@ -725,5 +725,20 @@ public class Util {
 //        }
 //    }
 
+    public static String timeStamp2Date(long timestampString) {
+        Long timestamp = timestampString * 1000;
+        String date = new SimpleDateFormat("MM-dd HH:mm").format(new Date(timestamp));
+        return date;
+    }
+
+    public static String timeStamp2DateShort(long timestampString) {
+        Long timestamp = timestampString * 1000;
+        String date = new SimpleDateFormat("HH:mm").format(new Date(timestamp));
+        return date;
+    }
+
+
+
+
 
 }

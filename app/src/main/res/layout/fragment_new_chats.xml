@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/activity_bg"
     tools:context="com.kacyber.View.NewChatsFragment">
 
     <RelativeLayout
@@ -18,7 +19,8 @@
             android:layout_marginLeft="18dp"
             android:text="Edit"
             android:textColor="@color/white"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:visibility="invisible"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,14 +31,20 @@
             android:textColor="@color/white"
             android:textSize="24dp" />
 
-        <ImageView
+        <RelativeLayout
             android:id="@+id/chats_fragment_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="?android:attr/actionBarSize"
+            android:layout_height="?android:attr/actionBarSize"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="18dp"
-            android:background="@drawable/chatspage_nav_more" />
+            android:layout_centerVertical="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/chatspage_nav_more" />
+        </RelativeLayout>
+
+
 
     </RelativeLayout>
 
@@ -56,6 +64,7 @@
                 android:background="@color/activity_bg">
 
                 <RelativeLayout
+                    android:id="@+id/chat_search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
@@ -96,13 +105,11 @@
 
             </RelativeLayout>
 
-            <include
-                android:id="@+id/chat_item_test"
-                layout="@layout/chat_item_layout"/>
-
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/conversation_list"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent"/>
+                android:layout_width="match_parent"
+                android:background="@color/activity_bg"/>
 
         </LinearLayout>
 

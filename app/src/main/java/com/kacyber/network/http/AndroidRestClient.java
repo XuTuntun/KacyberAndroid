@@ -1,10 +1,13 @@
 package com.kacyber.network.http;
 
 
+import android.content.Context;
 import android.util.Log;
 
 import com.kacyber.Utils.Util;
 import com.loopj.android.http.AsyncHttpClient;
+
+import org.apache.http.HttpEntity;
 
 public class AndroidRestClient extends AsyncHttpClient {
     public static String TAG = AndroidRestClient.class.getName();
@@ -96,6 +99,10 @@ public class AndroidRestClient extends AsyncHttpClient {
         this.addHeader("Accept-Encoding", "gzip");
     }
 
+
+    public void sendBodyRequest(Context context, String url, HttpEntity httpEntity, String contentType, HttpResponseHandler responseHandler) {
+        post(context, url, httpEntity, contentType, responseHandler);
+    }
 
     public void sendRequestWithoutParamas(boolean isPost, String url, HttpResponseHandler responseHandler) {
 

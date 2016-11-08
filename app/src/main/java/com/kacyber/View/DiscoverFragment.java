@@ -298,6 +298,7 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
 
     @Subscribe
     public void onMainMerchantListEvent(MainMerchantListEvent event) {
+        Log.e(TAG, "merchantArrayList size is " + event.merchantList.size());
         merchantArrayList = event.merchantList;
         eventItems = event.eventItems;
         trendingItems = event.trendingItems;
@@ -310,7 +311,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener, 
             trendingImage1.setImageUrl(trendingItems.get(0).picUrl, imageLoader);
             trendingImage2.setImageUrl(trendingItems.get(1).picUrl, imageLoader);
             eventImage1.setImageUrl(eventItems.get(0).picUrl, imageLoader);
-            eventImage2.setImageUrl(eventItems.get(1).picUrl, imageLoader);
+            if (eventItems.size()>1) {
+                eventImage2.setImageUrl(eventItems.get(1).picUrl, imageLoader);
+            } else {
+                eventImage2.setVisibility(View.GONE);
+            }
             aQuery.id(R.id.trending_1_title).text(trendingItems.get(0).title);
             aQuery.id(R.id.trending_1_description).text(trendingItems.get(0).subTitle);
             aQuery.id(R.id.trending_2_title).text(trendingItems.get(1).title);

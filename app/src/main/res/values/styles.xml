@@ -96,4 +96,8 @@
         <!--<item name="com_accountkit_input_accent_color">?attr/com_accountkit_primary_color</item>-->
         <!--<item name="com_accountkit_input_border_color">?attr/com_accountkit_primary_color</item>-->
     </style>
+
+    <style name="bqmm_horizontal_slide" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/AnimFade2</item>
+    </style>
 </resources>

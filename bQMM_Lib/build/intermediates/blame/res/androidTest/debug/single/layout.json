@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "/Users/guofuming/Documents/Wearelf/Kacyber2/bQMM_Lib/build/intermediates/res/merged/androidTest/debug/layout/bqmm_item_emoji.xml",
+        "source": "/Users/guofuming/Documents/Wearelf/Kacyber2/bQMM_Lib/build/intermediates/bundles/debug/res/layout/bqmm_item_emoji.xml"
+    },
+    {
+        "merged": "/Users/guofuming/Documents/Wearelf/Kacyber2/bQMM_Lib/build/intermediates/res/merged/androidTest/debug/layout/bqmm_message_view_right.xml",
+        "source": "/Users/guofuming/Documents/Wearelf/Kacyber2/bQMM_Lib/build/intermediates/bundles/debug/res/layout/bqmm_message_view_right.xml"
+    },
+    {
+        "merged": "/Users/guofuming/Documents/Wearelf/Kacyber2/bQMM_Lib/build/intermediates/res/merged/androidTest/debug/layout/bqmm_item_face.xml",
+        "source": "/Users/guofuming/Documents/Wearelf/Kacyber2/bQMM_Lib/build/intermediates/bundles/debug/res/layout/bqmm_item_face.xml"
+    },
+    {
+        "merged": "/Users/guofuming/Documents/Wearelf/bqmm-demo-android/bQMM_Lib/build/intermediates/res/merged/androidTest/debug/layout/bqmm_item_face.xml",
+        "source": "/Users/guofuming/Documents/Wearelf/bqmm-demo-android/bQMM_Lib/build/intermediates/bundles/debug/res/layout/bqmm_item_face.xml"
+    },
+    {
+        "merged": "/Users/guofuming/Documents/Wearelf/bqmm-demo-android/bQMM_Lib/build/intermediates/res/merged/androidTest/debug/layout/bqmm_message_view_left.xml",
+        "source": "/Users/guofuming/Documents/Wearelf/bqmm-demo-android/bQMM_Lib/build/intermediates/bundles/debug/res/layout/bqmm_message_view_left.xml"
+    },
+    {
+        "merged": "/Users/guofuming/Documents/Wearelf/bqmm-demo-android/bQMM_Lib/build/intermediates/res/merged/androidTest/debug/layout/bqmm_message_view_right.xml",
+        "source": "/Users/guofuming/Documents/Wearelf/bqmm-demo-android/bQMM_Lib/build/intermediates/bundles/debug/res/layout/bqmm_message_view_right.xml"
+    },
+    {
+        "merged": "/Users/guofuming/Documents/Wearelf/Kacyber2/bQMM_Lib/build/intermediates/res/merged/androidTest/debug/layout/bqmm_message_view_left.xml",
+        "source": "/Users/guofuming/Documents/Wearelf/Kacyber2/bQMM_Lib/build/intermediates/bundles/debug/res/layout/bqmm_message_view_left.xml"
+    },
+    {
+        "merged": "/Users/guofuming/Documents/Wearelf/bqmm-demo-android/bQMM_Lib/build/intermediates/res/merged/androidTest/debug/layout/bqmm_item_emoji.xml",
+        "source": "/Users/guofuming/Documents/Wearelf/bqmm-demo-android/bQMM_Lib/build/intermediates/bundles/debug/res/layout/bqmm_item_emoji.xml"
+    }
+]

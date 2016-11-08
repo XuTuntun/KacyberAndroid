@@ -6,17 +6,41 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.androidquery.AQuery;
+import com.kacyber.ActAndFrg.AddContact;
+import com.kacyber.ActAndFrg.GroupCreateActivity;
 import com.kacyber.ActAndFrg.NormalChatActivity;
+import com.kacyber.ActAndFrg.NormalSearchActivity;
 import com.kacyber.Control.MFGT;
 import com.kacyber.R;
+import com.kacyber.adapter.ConversationItemClickListener;
+import com.kacyber.adapter.ConversationsAdapter;
 import com.kacyber.dialog.ActionItem;
 import com.kacyber.dialog.TitlePopup;
+import com.kacyber.event.ConversationListEvent;
+import com.kacyber.event.ReceiveMessageEvent;
+import com.kacyber.model.Conversation;
+import com.kacyber.network.http.KacyberRestClientUsage;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmList;
+import io.realm.RealmResults;
+import io.realm.Sort;
 //import com.melink.bqmmsdk.ui.store.EmojiPackageDetail;
 //import com.melink.bqmmsdk.ui.store.EmojiPackageList;
 //import com.melink.bqmmsdk.ui.store.EmojiPackageSetting;
@@ -30,13 +54,18 @@ import com.kacyber.dialog.TitlePopup;
  * Use the {@link NewChatsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewChatsFragment extends Fragment implements View.OnClickListener{
+public class NewChatsFragment extends Fragment implements View.OnClickListener, ConversationItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static String TAG = NewChatsFragment.class.getName();
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static RealmResults<Conversation> conversations;
+
+
+    private RecyclerView conversationList;
+    private ConversationsAdapter conversationsAdapter;
 
     private static Activity context;
 
@@ -45,12 +74,12 @@ public class NewChatsFragment extends Fragment implements View.OnClickListener{
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
+    private Realm realm;
 
     private TitlePopup titlePopup;
 
     public NewChatsFragment() {
-        // Required empty public constructor
+
     }
 
     /**
@@ -79,6 +108,26 @@ public class NewChatsFragment extends Fragment implements View.OnClickListener{
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         context= this.getActivity();
+        EventBus.getDefault().register(this);
+        realm = Realm.getDefaultInstance();
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(TAG, "onResume");
+        conversations = realm.where(Conversation.class).findAllSorted("lastSendTime", Sort.DESCENDING);
     }
 
     @Override
@@ -86,11 +135,27 @@ public class NewChatsFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_chats, container, false);
-
         initPopWindow();
         AQuery aQuery = new AQuery(view);
-        aQuery.id(R.id.chat_item_test).clickable(true).clicked(this);
         aQuery.id(R.id.chats_fragment_add).clickable(true).clicked(this);
+        aQuery.id(R.id.chat_search).clickable(true).clicked(this);
+        conversationList = (RecyclerView) view.findViewById(R.id.conversation_list);
+        conversationList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        conversations = realm.where(Conversation.class).findAllSorted("lastSendTime", Sort.DESCENDING);
+        conversations.sort("lastSendTime");
+        conversationsAdapter = new ConversationsAdapter(this.getActivity(), R.layout.chat_item_layout, conversations);
+        conversationsAdapter.setOnItemClickListener(this);
+        Log.e(TAG, "onConversationsList size is " + conversations.size());
+        conversationList.setAdapter(conversationsAdapter);
+        conversations.addChangeListener(new RealmChangeListener<RealmResults<Conversation>>() {
+            @Override
+            public void onChange(RealmResults<Conversation> element) {
+                conversationsAdapter.setData(conversations);
+                conversationsAdapter.notifyDataSetChanged();
+                conversationList.invalidate();
+            }
+        });
+        KacyberRestClientUsage.getInstance().getConversationList();
         return view;
     }
 
@@ -114,10 +179,16 @@ public class NewChatsFragment extends Fragment implements View.OnClickListener{
             switch (position) {
                 case 0:// 发起群聊
 //                    MFGT.gotoCommon(, getString(R.string.menu_groupchat));
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(), GroupCreateActivity.class);
+                    startActivity(intent);
                     break;
                 case 1:// 添加朋友
 //                    MFGT.gotoCommon(MainActivity.this, getString(R.string.menu_addfriend));
 //                    MFGT.startActivity(MainActivity.this, NearByActivity.class);
+                    Intent addContactIntent = new Intent();
+                    addContactIntent.setClass(getActivity(), AddContact.class);
+                    startActivity(addContactIntent);
                     //TODO
                     break;
                 case 2:// 扫一扫
@@ -158,16 +229,28 @@ public class NewChatsFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.chat_item_test:
-                Intent intent = new Intent();
-                intent.setClass(this.getActivity(), NormalChatActivity.class);
-                this.getActivity().startActivity(intent);
-                break;
             case R.id.chats_fragment_add:
                 Log.e(TAG, "right corner clicked titlePopup is " + titlePopup);
                 titlePopup.show(context.findViewById(R.id.chats_header));
                 break;
+            case R.id.chat_search:
+                Intent intentSearch = new Intent();
+                intentSearch.setClass(getActivity(), NormalSearchActivity.class);
+                intentSearch.putExtra("hint", "Search");
+                intentSearch.putExtra("searchAction", "all");
+                startActivity(intentSearch);
+                break;
         }
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Log.e(TAG, "onItemClick");
+        Intent intent = new Intent();
+        long conversationId = conversations.get(position).id;
+        intent.putExtra("conversationId", conversationId);
+        intent.setClass(this.getActivity(), NormalChatActivity.class);
+        this.getActivity().startActivity(intent);
     }
 
     /**
@@ -183,5 +266,30 @@ public class NewChatsFragment extends Fragment implements View.OnClickListener{
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        realm.close();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onConversationsListEvent(ConversationListEvent event) {
+        Log.e(TAG, "onConversationsListEvent");
+        conversations = realm.where(Conversation.class).findAllSorted("lastSendTime", Sort.DESCENDING);
+//        conversationsAdapter.setData(conversations);
+//        conversationsAdapter.notifyDataSetChanged();
+//        conversationList.invalidate();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveMessageEvent(ReceiveMessageEvent event) {
+        conversations = realm.where(Conversation.class).findAllSorted("lastSendTime", Sort.DESCENDING);
+//        conversationsAdapter.setData(conversations);
+//        conversationsAdapter.notifyDataSetChanged();
+//        conversationList.invalidate();
+
     }
 }

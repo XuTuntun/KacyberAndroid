@@ -2,6 +2,8 @@ package com.kacyber.View;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.usage.UsageEvents;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,8 +24,16 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
+import com.kacyber.ActAndFrg.LoginActivity;
 import com.kacyber.R;
+import com.kacyber.event.JMessage;
+import com.kacyber.event.TokenError;
+import com.kacyber.network.http.KacyberRestClient;
+import com.kacyber.network.http.KacyberRestClientUsage;
 import com.kacyber.tools.SystemBarTintManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class MainActivity extends AppCompatActivity implements NewChatsFragment.OnFragmentInteractionListener, NewContactsFragment.OnFragmentInteractionListener, NewMoreFragment.OnFragmentInteractionListener {
     private static String TAG = MainActivity.class.getName();
@@ -50,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NewChatsFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        EventBus.getDefault().register(this);
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
 //        ActionBar actionBar = this.getActionBar();
 //        actionBar.hide();
@@ -59,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements NewChatsFragment.
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
         tintManager.setStatusBarAlpha((float)255);
 //        tintManager.setTintColor(Color.parseColor("#3ea1f5"));
+
+        KacyberRestClientUsage.getInstance().justice();
 
 
         initView();
@@ -118,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements NewChatsFragment.
         contentFragment = getSupportFragmentManager().findFragmentByTag(currentTab_);
         Log.e(TAG, "contentFragment is " + contentFragment);
         Log.e(TAG, "currentTab is " + currentTab_);
+        KacyberRestClientUsage.getInstance().justice();
         if (contentFragment!=null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, contentFragment).commit();
@@ -128,5 +141,26 @@ public class MainActivity extends AppCompatActivity implements NewChatsFragment.
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    @Subscribe
+    public void onJMessage(JMessage jMessage) {
+        Log.e(TAG, "JMessage");
+
+        this.finish();
+
+    }
+
+    @Subscribe
+    public void onTokenError(TokenError tokenError) {
+        Intent intent = new Intent();
+        intent.setClass(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

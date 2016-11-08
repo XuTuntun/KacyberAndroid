@@ -28,7 +28,7 @@ public class TrendingItem implements JSONParceble {
             longitude = obj.getDouble("longitude");
             latitude = obj.getDouble("latitude");
             title = obj.getString("title");
-            subTitle = obj.getString("subTtile");
+            subTitle = obj.getString("subTitle");
             merchantId = obj.getLong("merchantId");
 
         } catch (Exception e) {

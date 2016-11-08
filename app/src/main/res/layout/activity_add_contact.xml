@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_contact"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg"
+    tools:context="com.kacyber.ActAndFrg.AddContact">
+
+    <RelativeLayout
+        android:id="@+id/add_contact_header"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:id="@+id/add_contact_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
+            android:background="@drawable/chatspage_nav_return_icon"/>
+
+        <TextView
+            android:id="@+id/add_contact_back_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/add_contact_back"
+            android:text="Chat"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Add Contacts"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/add_contact_search"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/add_contact_header"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/add_contact_search_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/chatspage_search_icon"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search for User ID or Phone Number"
+            android:textColor="@color/text_hint"
+            android:layout_toRightOf="@id/add_contact_search_icon"
+            android:layout_centerVertical="true"
+            android:textSize="15dp"
+            android:layout_marginLeft="8dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/my_mobile_number"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#f1f0f6"
+        android:layout_below="@id/add_contact_search"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Mobile Number:"
+            android:textColor="@color/text_6"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="+256 784 007 939"
+            android:textColor="@color/text_6"
+            android:textSize="16dp"/>
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="12dp"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/add_mobile_contact"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:layout_below="@id/my_mobile_number">
+
+        <ImageView
+            android:id="@+id/add_mobile_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/chatspage_mobile_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <LinearLayout
+            android:id="@+id/chat_item_text_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/add_mobile_icon"
+            android:gravity="left|center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/chat_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:text="Mobile Contacts"
+                android:textColor="@color/black_4a"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:id="@+id/chat_item_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Add Friend from Phone Contacts"
+                android:textSize="14dp"
+                android:textColor="@color/text_9"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/detail_deal_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/person_more" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/add_qr_code_contact"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:layout_below="@id/add_mobile_contact">
+
+        <ImageView
+            android:id="@+id/add_qr_code_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/chatspage_scan_iconx"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/add_qr_code_icon"
+            android:gravity="left|center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:text="Scan QR Code"
+                android:textColor="@color/black_4a"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Scan Contact` or Group QR Code"
+                android:textSize="14dp"
+                android:textColor="@color/text_9"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/person_more" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

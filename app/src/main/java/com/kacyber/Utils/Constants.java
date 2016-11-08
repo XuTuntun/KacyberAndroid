@@ -36,7 +36,7 @@ public class Constants {
 
 
     public static String access_token;
-    //    public static String BASE_URL = "http://10.15.27.212:5000";
+//    public static String BASE_URL = "http://10.16.78.27:8080";
 
 
     public static String PLAYLIST_URL = BASE_URL + "/api/playlist/";
@@ -69,6 +69,27 @@ public class Constants {
     public static final String PLAY_LIST_ON_TEMPO = BASE_URL + "/api/playlistontempo/";
     public static final String PLAY_ON_TEMPO = BASE_URL + "/api/playontempo/";
 
+
+    public static final String ADD_FRIEND = BASE_URL + "/im/contact/request";
+    public static final String ACCEPT_FRIEND = BASE_URL + "/im/contact/accept";
+
+
+
+    public static final String SEARCH_FRIENDS = BASE_URL + "/search/friends";
+    public static final String SEARCH_BUSINESS = BASE_URL + "/search/business";
+    public static final String SEARCH_MOMENTS = BASE_URL + "/search/moments";
+    public static final String SEARCH_ALL = BASE_URL + "/search/all";
+    public static final String SEARCH_DISCOVER = BASE_URL + "/search/discover";
+    public static final String CONTACT_LIST = BASE_URL + "/im/contact/list";
+    public static final String GET_USER_BY_ID = BASE_URL + "/user/profile/get_user_by_id";
+
+
+
+
+
+
+
+
     public static final String PLAYLIST_GROUP = BASE_URL + "/playlist_group/";
 
     public static final String CREATE_USER = BASE_URL + "/user/auth";
@@ -85,12 +106,19 @@ public class Constants {
     public static final String APP_KEY = "a2FjeWJlcl8xNDc0MTk0NDAwMTA1";
 
     public static final String PGC_MUSIC_LIST = BASE_URL + "/api/playlist/5625e85d0307b34b1d881857/";
+    public static final String JUSTICE = "https://runningmusic.github.io/KaCyber/README.md";
 
     public static final String TENCENT_APP_URL_OLD = "http://qzs.qq.com/open/yyb/good_new_app/details.html?id=614570823670180785125&appid=42248887&from=timeline&isappinstalled=0&g_f=&srctype=&ticket=";
     public static final String HELP_URL = "http://www.kacyber.com/faq";
     public static final String ADD_BUSINESS = "http://www.joinkacyber.com";
     public static String OWE_ACCESS_TOKEN;
     public static final String TERMS = "http://www.kacyber.com/terms/";
+    public static final String CONVERSATION_LIST = BASE_URL + "/im/conversation/list";
+    public static long USER_ID  = 2;
+    public static String QUEUE_NAME;
+    public static String MOBILE;
+    public static int MOBILE_AREA_CODE;
+    public static final String SEND_MESSAGE = BASE_URL + "/im/message/send";
 
 
     static {
@@ -214,6 +242,12 @@ public class Constants {
     // 高德
     public static final int ERROR = 1001;
     public static final int REOCODER_RESULT = 3000;
+
+    /**
+     * MESSAGE_SEND_OR_RECEIVE
+     */
+    public static final int MESSAGE_SENDED=2;
+    public static final int MESSAGE_RECEIVED=1;
 
     /* 头像请求码 */
     public static final int IMAGE_REQUEST_CODE = 3000; // 本地图片

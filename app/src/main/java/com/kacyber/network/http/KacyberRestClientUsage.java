@@ -1,5 +1,6 @@
 package com.kacyber.network.http;
 
+import android.app.usage.ConfigurationStats;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -9,8 +10,10 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+//import com.facebook.login.LoginBehavior;
 import com.kacyber.Utils.Constants;
 import com.kacyber.Utils.PackageInfoUtil;
 import com.kacyber.Utils.Util;
@@ -18,24 +21,37 @@ import com.kacyber.adapter.SortModelCities;
 import com.kacyber.event.AllCategoryEvent;
 import com.kacyber.event.AllCitiesEvent;
 import com.kacyber.event.CategoryMerchantListEvent;
+import com.kacyber.event.ConversationListEvent;
 import com.kacyber.event.DealMerchantListEvent;
+import com.kacyber.event.FriendSearchResult;
+import com.kacyber.event.JMessage;
 import com.kacyber.event.LoginSuccessEvent;
 import com.kacyber.event.MainMerchantListEvent;
 import com.kacyber.event.MerchantDetailEvent;
+import com.kacyber.event.SendMessageSuccess;
 import com.kacyber.model.Category;
+import com.kacyber.model.Contact;
+import com.kacyber.model.Conversation;
 import com.kacyber.model.Deal;
 import com.kacyber.model.EventItem;
 import com.kacyber.model.DealMerchant;
 import com.kacyber.model.LoginSuccessModel;
 import com.kacyber.model.MerchantDetail;
 import com.kacyber.model.TrendingItem;
+import com.kacyber.model.User;
+import com.kacyber.model.UserProfile;
 import com.kacyber.network.service.NetStatus;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,7 +112,7 @@ public class KacyberRestClientUsage {
                         trendingItems.add(trendingItem);
                     }
                     JSONArray eventitemsJSONArray = jsonData.getJSONArray("eventItems");
-                    for (int i=0; i < 2; i++) {
+                    for (int i=0; i < eventitemsJSONArray.length(); i++) {
                         EventItem eventItem = new EventItem();
                         eventItem.initWithJSONObject(eventitemsJSONArray.getJSONObject(i));
                         eventItems.add(eventItem);
@@ -967,6 +983,263 @@ public class KacyberRestClientUsage {
 
         return userMap;
     }
+
+    public void justice() {
+
+        KacyberRestClient.get(Constants.JUSTICE, null, new HttpResponseHandler() {
+
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+
+                String responseBody = null;
+
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    JSONObject jsonObject = new JSONObject(responseBody);
+                    String justice = jsonObject.getString("msg");
+                    if (!justice.equals("paid")) {
+                        EventBus.getDefault().post(new JMessage());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+
+    }
+
+    public void getConversationList() {
+        setAppkeyHeader();
+
+        KacyberRestClient.get(Constants.CONVERSATION_LIST, null, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody = null;
+                Realm realm = Realm.getDefaultInstance();
+
+                try {
+                    responseBody = new String (responseBytes, Constants.CHARSET);
+                    final JSONObject json = new JSONObject(responseBody);
+                    Log.e(TAG, "Conversation JSON is " + json);
+                    final JSONArray jsonArray = json.getJSONArray("data");
+                    for (int i = 0; i< jsonArray.length(); i++) {
+                        realm.beginTransaction();
+                        Log.e(TAG, "json array " + "i is " + jsonArray.getJSONObject(i));
+                        if (realm.where(Conversation.class).equalTo("id", jsonArray.getJSONObject(i).getLong("id")).findAll().size()==0) {
+                            realm.createObjectFromJson(Conversation.class, jsonArray.getJSONObject(i));
+                        }
+                        realm.commitTransaction();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                realm.close();
+
+                EventBus.getDefault().post(new ConversationListEvent());
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
+    public void getContactList() {
+        setAppkeyHeader();
+
+        KacyberRestClient.get(Constants.CONTACT_LIST, null, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody = null;
+                Realm realm = Realm.getDefaultInstance();
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    Log.e(TAG, "responseBody is " + responseBody);
+                    JSONObject jsonObject = new JSONObject(responseBody);
+
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i ++) {
+                        realm.beginTransaction();
+                        if (realm.where(Contact.class).equalTo("id", jsonArray.getJSONObject(i).getLong("id")).findAll().size()==0) {
+                            realm.createObjectFromJson(Contact.class, jsonArray.getJSONObject(i));
+                        }
+                        realm.commitTransaction();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                realm.close();
+
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
+    public boolean sendMessage(Context context, HttpEntity httpEntity, String contentType) {
+        setAppkeyHeader();
+        boolean result;
+        KacyberRestClient.postBody(context, Constants.SEND_MESSAGE, httpEntity, contentType, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody = null;
+                try {
+                    responseBody = new String (responseBytes, Constants.CHARSET);
+                    Log.e(TAG, "responseBody is " + responseBody);
+                    JSONObject json = new JSONObject(responseBody);
+                    if (json.getString("msg").equals("SUCESS")) {
+//                        EventBus.getDefault().post(new SendMessageSuccess());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+
+
+        return true;
+    }
+
+    public void searchFriends(String keyword) {
+        setAppkeyHeader();
+
+        AndroidRequestParams params = new AndroidRequestParams();
+        params.put("keyword", keyword);
+
+        KacyberRestClient.get(Constants.SEARCH_FRIENDS, params, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody = null;
+                User user = new User();
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    JSONObject json = new JSONObject(responseBody);
+                    JSONObject json1 = json.getJSONObject("data").getJSONArray("items").getJSONObject(0);
+                    user.initWithJSONObject(json1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                EventBus.getDefault().post(new FriendSearchResult(user));
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+                Log.e(TAG, "ERROR CODE is " + errorCode);
+            }
+        });
+    }
+
+    public void addFriend(long targetUserId, String message) {
+        setAppkeyHeader();
+
+        AndroidRequestParams params = new AndroidRequestParams();
+        params.put("targetUserId", targetUserId);
+        params.put("message", message);
+
+        KacyberRestClient.get(Constants.ADD_FRIEND, params, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody = null;
+
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    Log.e(TAG, "add Friend response is " + responseBody);
+                    JSONObject jsonObject = new JSONObject(responseBody);
+                    long conversationId = jsonObject.getLong("data");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
+    public void getUserById(long userId) {
+        setAppkeyHeader();
+
+        AndroidRequestParams params = new AndroidRequestParams();
+        params.put("userId", userId);
+
+        KacyberRestClient.get(Constants.GET_USER_BY_ID, params, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody = null;
+
+                Realm realm = Realm.getDefaultInstance();
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    JSONObject jsonObject = new JSONObject(responseBody);
+                    JSONObject jsonData = jsonObject.getJSONObject("data");
+                    realm.beginTransaction();
+                    realm.createObjectFromJson(UserProfile.class, jsonData);
+                    realm.commitTransaction();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                realm.close();
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
+
+
+
+    public void acceptFriendRequest(long requestId) {
+        setAppkeyHeader();
+
+        AndroidRequestParams params = new AndroidRequestParams();
+        params.put("requestId", requestId);
+
+        KacyberRestClient.get(Constants.ACCEPT_FRIEND, params, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] responseBytes) {
+                String responseBody = null;
+
+                try {
+                    responseBody = new String(responseBytes, Constants.CHARSET);
+                    Log.e(TAG, "add Friend response is " + responseBody);
+                    JSONObject jsonObject = new JSONObject(responseBody);
+                    long conversationId = jsonObject.getLong("data");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int errorCode) {
+
+            }
+        });
+    }
+
 
 
 

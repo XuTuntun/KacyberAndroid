@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/activity_bg"
+    android:paddingTop="10dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/sender_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="6dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:text="12 Jul 2016 10:30 PM"
+        android:textColor="@color/white"
+        android:background="@drawable/grey_time_bg"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.kacyber.View.CircleNetworkImageView
+            android:id="@+id/sender_head"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/chatspage_head_photo_placeholder4"/>
+
+        <TextView
+            android:id="@+id/sender_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textSize="18dp"
+            android:textColor="@color/message_color"
+            android:layout_toLeftOf="@id/sender_head"
+            android:background="@drawable/chatspage_bubble_blue" />
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/sender_iamge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:maxHeight="200dp"
+            android:layout_toLeftOf="@id/sender_head"
+            android:layout_marginRight="10dp"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
